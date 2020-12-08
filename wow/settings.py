@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', #added, allows proper callbacks for connecting via socialaccount - try it in own project
+    'django_extensions', #django shell_plus
+    'allauth', #added
+    'allauth.account', #added
+    'allauth.socialaccount', #added
+    # Local Apps
+    #'public',
+    # Other
+    #'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -59,13 +68,32 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', #req by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', # allows superusers login
+    'allauth.account.auth_backends.AuthenticationBackend', #using email address, not there by default
+]
+
+SITE_ID = 1
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' #allow AllAuth authenictaion using usernames or email
+ACCOUNT_EMAIL_REQUIRED = True #required
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' #must verify
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True #input email twice so no typos
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+
 
 WSGI_APPLICATION = 'wow.wsgi.application'
 

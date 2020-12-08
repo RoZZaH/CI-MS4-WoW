@@ -1,0 +1,57 @@
+{% load static %}
+<html>
+    <head>
+    {% block meta %}
+
+    {% endblock meta %}
+    {% block corecss %}
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    {% endblock corecss %}
+    <style>
+        li {
+            display: list-item;
+        }
+    </style>
+    {% block extracss %}
+    {% endblock extracss %}
+    <title>Bandz{% block extra_title %} {% endblock extra_title %}</title>
+    </head>
+    <body class="bg-yellow-800">
+        <header>
+        <h1 class="bg-white">Bandz</h1>
+        <nav class="bg-black w-screen text-white">
+            <ul class="bg-red-800 flex justify-between items-center content-center w-full border-b-2 border-black">
+                <li class="font-serif font-black italic flex bg-red-300 pl-2 w-1/3 underline lowercase"><a href="{% url 'home' %}">Home</a></li>
+                <li class="font-mono font-bold flex bg-yellow-500 py-2 w-1/3 tracking-wider leading-relaxed"><a href="{% url 'bands' %}">Bands</a></li>
+                <li class="font-sans font-extrabold flex bg-green-600 px-2 w-1/3 tracking-widest line-through uppercase"><a href="{% url 'counties' %}">Location</a></li>
+            </ul>
+        </nav>
+        {% if messages %}
+        <div class="messages-container">
+        </div>
+        {% endif %}
+        </header>
+
+    {% block page_header %}
+    {% endblock page_header %}
+
+    {% block content %}
+    {% endblock content %}
+    
+    {% block corejs %}
+    <!-- UI/UX -->
+    <script src="https://kit.fontawesome.com/61f1a208df.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Stripe -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    {% endblock corejs %}
+    {% block extrajs %}
+    {% endblock extrajs %}
+
+    {% block postloadjs %}
+    {% endblock postloadjs %}
+
+    </body>
+
+</html>
