@@ -70,3 +70,16 @@ $RECYCLE.BIN/
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
+
+## Node JS
+node_modules
+build
+npm-debug.log
+
+
+
+# Mac
+.DS_Store
+
+# tailwind o (not minified by PostCSS)
+static/css/tailwind.css
