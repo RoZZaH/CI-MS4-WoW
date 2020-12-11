@@ -12,25 +12,14 @@
     {% block corecss %}
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     {% endblock corecss %}
-    <style>
-        li {
-            display: list-item;
-        }
-    </style>
+
     {% block extracss %}
     {% endblock extracss %}
     <title>World of Wines{% block extra_title %} {% endblock extra_title %}</title>
     </head>
     <body class="bg-yellow-800">
-        <header>
+        <header class="container-fluid fixed-top">
         <h1 class="bg-white">World of Wines</h1>
-        <nav class="bg-black w-screen text-white">
-            <ul class="bg-red-800 flex justify-between items-center content-center w-full border-b-2 border-black">
-                <li class="font-serif font-black italic flex bg-red-300 pl-2 w-1/3 underline lowercase"><a href="{% url 'home' %}">Home</a></li>
-                <li class="font-mono font-bold flex bg-yellow-500 py-2 w-1/3 tracking-wider leading-relaxed"><a href="{% url 'bands' %}">Bands</a></li>
-                <li class="font-sans font-extrabold flex bg-green-600 px-2 w-1/3 tracking-widest line-through uppercase"><a href="{% url 'counties' %}">Location</a></li>
-            </ul>
-        </nav>
         {% if messages %}
         <div class="messages-container">
         </div>
@@ -51,6 +40,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.stripe.com/v3/"></script>
     {% endblock corejs %}
+    
     {% block extrajs %}
     {% endblock extrajs %}
 
