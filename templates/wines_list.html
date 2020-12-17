@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Wine List{% endblock title %}
+{% block content %}
+<h2>Cheese List</h2>
+<ul>
+{% for wine in wine_list %}
+<li><a 
+    href="{% url 'wines:detail' wine.slug %}"
+    >{{ wine.name }} - {{ wine.region.name }} - {{ wine.region.country.name }}</a></li>
+{% endfor %}
+</ul> 
+{% endblock content %}

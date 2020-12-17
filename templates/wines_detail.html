@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Wines: {{ wine.name }}{% endblock title %}
+{% block content %}
+<h2>{{ wine.name }}</h2>
+{% if wine.style %}
+<p>Style: {{ wine.get_style_display }}</p>
+{% endif %}
+{% if wine.description %}
+<p>{{ wine.description }}</p>
+{% endif %}
+{% if wine.region %}
+<p>Region: {{ wine.region }} <img src="{{ wine.region.country.flag }}" />
+</p>
+{% endif %}
+{% endblock content %}
