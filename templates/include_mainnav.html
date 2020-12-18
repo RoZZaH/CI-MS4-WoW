@@ -3,31 +3,31 @@
         <li class="nav-item">
             <a 
             class="logo-font font-weight-bold nav-link text-black mr-5" 
-            href="{% url 'wines:list' %}"
+            href="{% url 'wines:type' wtype='red' %}"
             >Red</a>
         </li>
         <li class="nav-item">
             <a 
             class="logo-font font-weight-bold nav-link text-black mr-5"
-            href=""
+            href="{% url 'wines:type' wtype='white' %}"
             >White</a>
         </li>
         <li class="nav-item">
             <a 
             class="logo-font font-weight-bold nav-link text-black mr-5"
-            href=""
+            href="{% url 'wines:type' wtype='sparkling' %}"
             >Sparkling</a>
         </li>
         <li class="nav-item">
             <a 
             class="logo-font font-weight-bold nav-link text-black mr-5"
-            href=""
+            href="{% url 'wines:type' wtype='rose' %}"
             >Ros&eacute;</a>
         </li>
         <li class="nav-item">
             <a
             class="logo-font font-weight-bold nav-link text-black mr-5"
-            href=""
+            href="{% url 'wines:specials' %}"
             >Specials</a>
         </li>
     </ul>

@@ -16,9 +16,9 @@
         <link rel="stylesheet" href="{% static '/css/base.css' %}">
     {% endblock corecss %}
 
-    {% block extracss %}
-    {% endblock extracss %}
-    <title>World of Wines{% block extra_title %} {% endblock extra_title %}</title>
+    {% block extracss %}{% endblock %}
+
+    <title>World of Wines {% block extra_title %}{% endblock %}</title>
     </head>
     <body>
         <header class="container-fluid fixed-top">
@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="">
+                <form method="GET" action="{% url 'wines:list' %}">
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
                         <div class="input-group-append">

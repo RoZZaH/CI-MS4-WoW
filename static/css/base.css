@@ -67,6 +67,16 @@ h1.text-black {
     background: #000 !important;
 }
 
+.overlay { /* change to just homepage class */
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
+
 /* Media Queries */
 
 /* xl screens */
@@ -88,5 +98,15 @@ h1.text-black {
 
     .header-container {
         padding-top: 164px;
+    }
+}
+
+/* padding top on smaller screens */
+@media(max-width: 991px){
+    .header-container { 
+        padding-top: 124px; 
+    }
+    body { 
+        height: calc(100vh - 124px); 
     }
 }
