@@ -78,6 +78,9 @@ TEMPLATES = [
             #     ('django.template.loaders.filesystem.Loader',
             #     [BASE_DIR / 'templates'],)
             # ],
+            'libraries': {
+                'my_tags': 'templates.ttags.basket_tools',
+            },
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request', #req by allauth
@@ -89,6 +92,7 @@ TEMPLATES = [
     },
 ]
 
+# MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', # allows superusers login

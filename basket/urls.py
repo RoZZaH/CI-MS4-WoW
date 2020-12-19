@@ -13,4 +13,14 @@ urlpatterns = [
         view = views.add,
         name='add'
     ),
+    path(
+        route='adjust/<slug>/',
+        view = views.adjust,
+        name='adjust'
+    ),
+    path(
+        route='remove/<slug>/',
+        view = views.remove,
+        name='remove'
+    ),
 ]

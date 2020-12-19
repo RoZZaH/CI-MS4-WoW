@@ -118,15 +118,9 @@
         </div>
     </div>
 </div>
-<h2>{{ wine.name }}</h2>
-{% if wine.style %}
-<p>Style: {{ wine.get_style_display }}</p>
-{% endif %}
-{% if wine.description %}
-<p>{{ wine.description }}</p>
-{% endif %}
-{% if wine.region %}
-<p>Region: {{ wine.region }} <img src="{{ wine.region.country.flag }}" />
-</p>
-{% endif %}
 {% endblock content %}
+
+{% block extrajs %}
+{{ block.super }}
+{% include "include_basket-quantity-buttons-logic.html" %}
+{% endblock extrajs %}

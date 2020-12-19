@@ -1,0 +1,37 @@
+<script>
+    function handleEnableDisable(currentVal, itemId){
+        dec = document.getElementById(`decrement-qty_${itemId}`)
+        inc = document.getElementById(`increment-qty_${itemId}`)
+        currentVal < 2 ? dec.setAttribute("disabled", true) : dec.removeAttribute("disabled")
+        currentVal > 98 ? inc.setAttribute("disabled", true) : inc.removeAttribute("disabled")
+    }
+    const quant_btns = [ ...document.querySelectorAll(".qty_input")];
+    /* init */
+    quant_btns.forEach(item => handleEnableDisable(item.value, item.getAttribute("data-item_id")));
+    /* listen */
+    quant_btns.forEach(item => item.addEventListener("change", function() {
+        handleEnableDisable(this.value, this.getAttribute("data-item_id"))
+    }));
+
+    [ ...document.querySelectorAll(".decrement-qty")].forEach(item => item.addEventListener("click", function(e){
+        e.preventDefault()
+        const closestInput = this.closest(".input-group").querySelector(".qty_input")
+        let currentVal = parseInt(closestInput.value)
+        closestInput.value = currentVal - 1 
+        currentVal = closestInput.value
+        const itemId = this.getAttribute("data-item_id")
+        console.log(itemId)
+        handleEnableDisable(currentVal, itemId)
+    }));
+
+    [ ...document.querySelectorAll(".increment-qty")].forEach(item => item.addEventListener("click", function(e){
+        e.preventDefault()
+        const closestInput = this.closest(".input-group").querySelector(".qty_input")
+        let currentVal = parseInt(closestInput.value)
+        closestInput.value = currentVal + 1 
+        currentVal = closestInput.value
+        const itemId = this.getAttribute("data-item_id")
+        console.log(itemId)
+        handleEnableDisable(currentVal, itemId)
+    }));
+</script>

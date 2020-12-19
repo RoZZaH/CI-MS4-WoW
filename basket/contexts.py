@@ -22,14 +22,15 @@ def basket_contents(request):
         basket_items.append({
             "bottle_id": bottle.slug,
             "quantity": quantity,
-            "bottle": bottle
+            "bottle": bottle,
+            "bottle_price": _price
         })
 
     if bottle_count < settings.FREE_DELIVERY_THRESHOLD:
-        if bottle_count <= 2:
-            delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
         if bottle_count <= 5:
             delivery_charge = Decimal(2 * settings.STANDARD_DELIVERY_CHARGE)
+        if bottle_count <= 2:
+            delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - bottle_count
     else:
         delivery_charge = 0

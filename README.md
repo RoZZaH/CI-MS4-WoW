@@ -29,6 +29,10 @@ Owner and Admin likewise mean Site Owner/Administator
 ### Purchasing and Checkout
 
 
+### Testing and Bugs
+
+
+
 ## Deployment
 create venv
 conda create -n wow python=3.8

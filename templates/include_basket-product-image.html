@@ -1,5 +1,5 @@
 {% if item.bottle.image %}
-<img class="img-fluid rounded" src="{{ item.bottle.image.url }}" alt="{{ item.bottle.name }}">
+<img class="rounded" src="{{ item.bottle.image.url }}" alt="{{ item.bottle.name }}" height="120">
 {% else %}
-<img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.bottle.name }}">
+<img class="rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.bottle.name }}" height="120">
 {% endif %}

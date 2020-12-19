@@ -159,10 +159,9 @@
 </div>
 {% endblock content %}
 
-{% block postloadjs %}
+{% block extrajs %}
 {{ block.super }}
 <script>
-    document.querySelector(".btt-link").addEventListener("click", function(e){window.scrollTo(0,0)})
     document.getElementById("sort-selector").addEventListener("change", function(){
         const currentUrl = new URL(window.location)
         const selectedVal = this.value
@@ -176,6 +175,6 @@
             currentUrl.searchParams.delete("direction")
         }
         window.location.replace(currentUrl)
-    })
+    });
 </script>
-{% endblock postloadjs %}
+{% endblock extrajs %}

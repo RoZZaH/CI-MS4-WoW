@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load my_tags %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -43,13 +44,13 @@
                                         {% include "include_basket-product-info.html" %}
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">&euro;{{ item.bottle.discounted_price }}</p>
+                                        <p class="my-0">&euro;{{ item.bottle_price }}</p>
                                     </td>
                                     <td class="py-3 w-25">
                                         {% include "include_basket-product-quantity-form.html" %}
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">&euro;{{ item.bottle.list_price }}</p>
+                                        <p class="my-0">&euro;{{ item.bottle_price|calc_subtotal:item.quantity }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -75,4 +76,67 @@
         </div>
     </div>
 </div>
+<!-- btt-->
+<div class="btt-button shadow-sm rounded-0 border border-black">
+    <a class="btt-link d-flex h-100"><i class="fas fa-arrow-up text-black mx-auto my-auto"></i></a>	
+</div>
 {% endblock %}
+
+{% block extrajs %}
+{{ block.super }}
+{% include "include_basket-quantity-buttons-logic.html" %}
+
+<script type="text/javascript">
+    {% comment %} document.querySelector(".btt-link").addEventListener("click", function(e){window.scrollTo(0,0)}); {% endcomment %}
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        console.log("click_update")
+        var form = $(this).prev('.update-form');
+        form.submit();
+    });
+
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        console.log(csrfToken )
+        var itemId = $(this).attr('id').split('remove_')[1];
+        //var size = $(this).data('product_size');
+        var url = `/basket/remove/${itemId}/`;
+        //var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
+        //var data = {'csrfmiddlewaretoken': csrfToken };
+
+        /*$.post(url, data)
+         .done(function() {
+             location.reload();
+         }); */
+
+        let csrftoken = getCookie('csrftoken');
+        fetch(url, {
+            method: 'POST',
+         //   body: JSON.stringify(data),
+            headers: { "X-CSRFToken": csrftoken },
+        }).then(()=>location.reload());
+
+
+
+
+// The following function are copying from 
+// https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    });
+</script>
+{% endblock extrajs %}
