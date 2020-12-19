@@ -23,10 +23,7 @@ class WineListView(ListView):
         if sortkey == 'list_price':
             dir = getDirection()
             qs = Wine.objects.annotate(final_price=Coalesce('discounted_price','list_price')).order_by(f'{dir}final_price')
-            # sortkey = 'lower_name'
-            # if "direction" in self.request.GET.get("direction") and self.request.GET.get("direction"):
-            #     sortkey = f'-{sortkey}'
-
+     
         if sortkey == 'wtype':
             dir = getDirection()
             qs = Wine.objects.order_by(f'{dir}wtype')
@@ -39,14 +36,8 @@ class WineListView(ListView):
         if q:
             qs = self.model.objects.filter(Q(name__icontains=q) | Q(description__icontains=q))
         return qs
-    
-
-    # def get_from_kwargs(self):
-    #     kwargs = super(WineListView, self).get_from_kwargs()
-    #     if 'sort' in self.request.GET:
-    #         current_sorting = f'{ self.request.GET["sort"] }_{self.request.GET["direction"]}'
-    #         kwargs['current_sorting'] = current_sorting
-    #     return kwargs
+  
+  
     def get_context_data(self, **kwargs):
         ctx = super(WineListView, self).get_context_data(**kwargs)
         if 'sort' in self.request.GET:

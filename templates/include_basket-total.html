@@ -1,0 +1,12 @@
+<h6><strong>Basket Total: &euro;{{ total|floatformat:2 }}</strong></h6>
+<h6>{% if not delivery %}
+    <span class="text-upper">FREE Delivery</span> (<strike>&euro;0.00</strike>)
+    {% else %}
+    Delivery: &euro;{{ delivery|floatformat:2 }}
+    {% endif %}</h6>
+<h4 class="mt-4"><strong>Grand Total: &euro;{{ grand_total|floatformat:2 }}</strong></h4>
+{% if free_delivery_delta > 0 %}
+    <p class="mb-1 text-danger">
+        You could get free delivery by spending just <strong>&euro;{{ free_delivery_delta }}</strong> more!
+    </p>
+{% endif %}

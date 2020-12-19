@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_countries',
     # Local Apps
     "wines",
+    "basket",
     #'public',
     # Other
     #'crispy_forms',
@@ -82,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request', #req by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'basket.contexts.basket_contents'
             ],
         },
     },
@@ -168,3 +170,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+FREE_DELIVERY_THRESHOLD = 6
+STANDARD_DELIVERY_CHARGE = 5

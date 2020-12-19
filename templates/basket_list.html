@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container mb-2">
+    <div class="row">
+        <div class="col text-center">
+            <hr class="w-50">    
+            <h2 class="logo-font">Shopping Basket</h2>
+            <hr class="mb-1"> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if basket_items %}
+                <div class="table-responsive rounded">
+                    <table class="table table-sm table-borderless">
+                    <table class="table table-sm table-borderless">
+                            <thead class="text-black">
+                                <tr>
+                                    <th scope="col">Product Info</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+                            {% for item in basket_items %}
+                                <tr>
+                                    <td class="p-3 w-25">
+                                        {% include "include_basket-product-image.html" %}
+                                    </td>
+                                    <td class="py-3">
+                                        {% include "include_basket-product-info.html" %}
+                                    </td>
+                                    <td class="py-3">
+                                        <p class="my-0">&euro;{{ item.bottle.discounted_price }}</p>
+                                    </td>
+                                    <td class="py-3 w-25">
+                                        {% include "include_basket-product-quantity-form.html" %}
+                                    </td>
+                                    <td class="py-3">
+                                        <p class="my-0">&euro;{{ item.bottle.list_price }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="5" class="pt-5 text-right">
+                                    {% include "include_basket-total.html" %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {% include "include_basket-checkout-buttons.html" %}
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            {% else %} 
+                <p class="lead mb-5">Your basket is empty.</p>
+                <a href="{% url 'wines:list' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                    <span class="text-uppercase">Discover Our Wines</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

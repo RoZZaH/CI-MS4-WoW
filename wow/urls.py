@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('wines/', include('wines.urls', namespace='wines')),
+    path('basket/', include('basket.urls', namespace='basket')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
