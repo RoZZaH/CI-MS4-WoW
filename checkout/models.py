@@ -36,7 +36,7 @@ class Order(models.Model):
 
     def _generate_order_number(self):
         """
-        Generate a random, unique order number UUID
+        Generate a random order number UUID
         """
         return uuid.uuid4().hex.upper()
 

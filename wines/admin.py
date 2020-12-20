@@ -1,16 +1,23 @@
 from django.contrib import admin
 from .models import Winery, Region, Wine
 
+
+# class WineAdminInline(admin.TabularInline):
+#     model = Wine
+#     list_display = ("slug")
+#     # readonly_fields = ("lineitem_total",)
+
+# class RegionAdmin(admin.ModelAdmin):
+#     inlines = (WineAdminInline,)
+admin.site.register(Region) #multiselect - wine.slugs
+ 
 class WineryAdmin(admin.ModelAdmin):
     list_display = (
         'brand',
         'name')
     ordering = ('name', )
 
-admin.site.register(Winery, WineryAdmin)
 
-
-admin.site.register(Region)
 
 class WineAdmin(admin.ModelAdmin):
     list_display = (
@@ -33,3 +40,4 @@ class WineAdmin(admin.ModelAdmin):
     ordering = ('vintage', 'region', 'winery')
     
 admin.site.register(Wine, WineAdmin)
+admin.site.register(Winery, WineryAdmin)
