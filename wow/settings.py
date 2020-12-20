@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Local Apps
     "wines",
     "basket",
+    "checkout",
     #'public',
     # Other
     #'crispy_forms',
