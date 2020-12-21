@@ -21,7 +21,7 @@ environ.Env.read_env(env_file)
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_$r*x_0f4mz1&ka*0#fo!84_h-1+crrm(0qhal25#tkrl6yfc2'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
@@ -174,6 +174,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -185,3 +186,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 FREE_DELIVERY_THRESHOLD = 6
 STANDARD_DELIVERY_CHARGE = 5
+STRIPE_CURRENCY = 'eur'
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
