@@ -12,4 +12,5 @@ urlpatterns = [
     path('wines/', include('wines.urls', namespace='wines')),
     path('basket/', include('basket.urls', namespace='basket')),
     path('checkout/', include('checkout.urls', namespace='checkout')),
+    path('customer/', include('customers.urls', namespace='customers')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
