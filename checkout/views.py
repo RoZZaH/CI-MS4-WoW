@@ -1,8 +1,10 @@
 from re import template
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse, HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 import stripe
+import json
 
 from .forms import OrderForm
 from django.views import View
@@ -11,7 +13,26 @@ from basket.contexts import basket_contents
 from .models import Order, OrderLineItem
 from wines.models import Wine
 
-class CheckoutView(View):
+
+@require_POST
+def cache_checkout_payform_data(request):
+    try:
+        pid = request.POST.get("client_secret").split("_secret")[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'basket': json.dumps(request.session.get('basket')),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, "Sorry, your payment cannot be \
+            processed right now. Pleas try again later.")
+        return HttpResponse(content=e, status=400)
+
+
+
+class CheckoutView(View):  
 # Display Form
 # on error - display validation errors
 # on success redirect to success url
@@ -69,7 +90,12 @@ class CheckoutView(View):
         order_form = self.form_class(form_data or None)
 
         if order_form.is_valid():
-            order = order_form.save()
+            order = order_form.save(commit=False)
+            pid = request.POST.get("client_secret").split("_secret")[0]
+            order.stripe_pid = pid
+            order.original_basket = json.dumps(basket)
+            order.save()
+
             for bottle_id, quantity in basket.items():
                 try:
                     product = Wine.objects.get(slug=bottle_id)

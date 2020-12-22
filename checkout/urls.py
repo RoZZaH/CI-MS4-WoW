@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .webhooks import webhook
 
 app_name = "checkout"
 
@@ -16,6 +17,16 @@ urlpatterns = [
         view = views.CheckoutSuccessView.as_view(),
         name='success'
     ),
+    path(
+        'wh/',
+        webhook,
+        name = 'webhook'
+    ),
+    path(
+        route='cache_checkout_payform_data/',
+        view = views.cache_checkout_payform_data,
+        name = 'cached_pfdata'
+    )
     # path(
     #     route='checkout_success/<order_number>/',
     #     view = views.checkout_success,
