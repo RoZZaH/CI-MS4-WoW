@@ -13,6 +13,7 @@ class WineListView(ListView):
    
     def get_queryset(self):
         # qs = super().get_queryset()
+        # order_by if no sort key
         qs = self.model.objects.all()
 
         def getDirection():

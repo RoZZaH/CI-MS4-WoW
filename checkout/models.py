@@ -47,11 +47,11 @@ class Order(models.Model):
         """
         self.order_total = self.lineitems.aggregate(
             Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        if self.order_total < settings.FREE_DELIVERY_THRESHOLD: #edit for case/value
-            sdp = settings.STANDARD_DELIVERY_PERCENTAGE
-            self.delivery_cost = self.order_total * sdp / 100
-        else:
-            self.delivery_cost = 0
+        # if self.order_total < settings.FREE_DELIVERY_THRESHOLD: #edit for case/value
+        #     sdp = settings.STANDARD_DELIVERY_PERCENTAGE
+        #     self.delivery_cost = self.order_total * sdp / 100
+        # else:
+        self.delivery_cost = 33
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
@@ -90,7 +90,8 @@ class OrderLineItem(models.Model):
         Override save method to set the lineitem total
         and update order total.
         """
-        self.lineitem_total = self.product.price * self.quantity #_price
+        self.lineitem_total = int(kwargs.pop("price", self.product.list_price)) * self.quantity #_price
+        print(self.lineitem_total)
         super().save(*args, **kwargs)
 
 

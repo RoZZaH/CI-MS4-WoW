@@ -6,9 +6,21 @@ app_name = "checkout"
 urlpatterns = [
      path(
         route='',
-        view = views.checkout,
+        # view = views.checkout,
+        view = views.CheckoutView.as_view(),
         name='list'
-    )
+    ),
+     path(
+        route='success/<order_number>/',
+        # view = views.checkout,
+        view = views.CheckoutSuccessView.as_view(),
+        name='success'
+    ),
+    # path(
+    #     route='checkout_success/<order_number>/',
+    #     view = views.checkout_success,
+    #     name='success'
+    # ),
     # path(
     #     route='add/<slug>/',
     #     view = views.add,

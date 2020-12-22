@@ -38,16 +38,16 @@
                             {% for item in basket_items %}
                                 <tr>
                                     <td class="p-3 w-25">
-                                        {% include "include_basket-product-image.html" %}
+                                        {% include "includes/_basket_product-image.html" %}
                                     </td>
                                     <td class="py-3">
-                                        {% include "include_basket-product-info.html" %}
+                                        {% include "includes/_basket_product-info.html" %}
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">&euro;{{ item.bottle_price }}</p>
                                     </td>
                                     <td class="py-3 w-25">
-                                        {% include "include_basket-product-quantity-form.html" %}
+                                        {% include "includes/_basket_product-quantity-form.html" %}
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">&euro;{{ item.bottle_price|calc_subtotal:item.quantity }}</p>
@@ -56,12 +56,12 @@
                             {% endfor %}
                             <tr>
                                 <td colspan="5" class="pt-5 text-right">
-                                    {% include "include_basket-total.html" %}
+                                    {% include "includes/_basket_total.html" %}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    {% include "include_basket-checkout-buttons.html" %}
+                                    {% include "includes/_basket_checkout-buttons.html" %}
                                 </td>
                             </tr>
                     </table>
@@ -84,7 +84,7 @@
 
 {% block extrajs %}
 {{ block.super }}
-{% include "include_basket-quantity-buttons-logic.html" %}
+{% include "includes/_basket_quantity-buttons-logic.html" %}
 
 <script type="text/javascript">
     {% comment %} document.querySelector(".btt-link").addEventListener("click", function(e){window.scrollTo(0,0)}); {% endcomment %}

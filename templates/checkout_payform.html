@@ -21,7 +21,6 @@
         <div class="col text-center">
             <hr class="w-50">    
             <h2 class="logo-font">Shopping &nbsp;Checkout</h2>
-            <p>{{ stripe_public_key }} | {{ stripe_secret_key }}</a>
             <hr class="mb-1"> 
         </div>
     </div>
@@ -135,6 +134,11 @@
         </div>
     </div>
 </div>
+<div id="loading-overlay">
+    <h1 class="text-light logo-font loading-spinner">
+        <span class="icon"><i class="fas fa-3x fa-sync-alt fa-spin"></i></span>
+    </h1>
+</div>
 <!-- btt-->
 <div class="btt-button shadow-sm rounded-0 border border-black">
     <a class="btt-link d-flex h-100"><i class="fas fa-arrow-up text-black mx-auto my-auto"></i></a>	
@@ -144,7 +148,9 @@
 {% block postloadjs %}
 {{ block.super }}
 {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-{{ client_secret|json_script:"id_client_secret" }}
+{% comment %} this is diff key to provate key! {% endcomment %}
+{{ client_secret|json_script:"id_client_secret" }} 
+
 <script src="{% static '/js/stripe_elements.js' %}"></script>
 {% endblock postloadjs %}
 
