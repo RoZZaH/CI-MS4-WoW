@@ -1,8 +1,11 @@
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.db.models.functions import Coalesce
 
 from .models import Wine
+from .forms import WineForm
 
 class WineListView(ListView):
     
@@ -77,3 +80,36 @@ class WineSpecials(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(discounted_price__isnull=False)
+
+class AddWine(CreateView):
+    form_class = WineForm
+    template_name = "wines_add.html"
+
+    def get_success_url(self):
+        return reverse("wines:add")
+
+
+class EditWine(UpdateView):
+    model = Wine
+    form_class = WineForm
+    template_name = "wines_update.html"
+
+    def get_object(self, queryset=None):
+        instance = self.model.objects.get(slug=self.kwargs.get('slug',''))
+        return instance
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy("wines:detail", kwargs={"slug": self.kwargs.get('slug','') })
+
+
+class DeleteWine(DeleteView):
+    model = Wine
+    template_name = "wines_confirm_delete.html"
+
+    def get_object(self, queryset=None):
+        instance = self.model.objects.get(slug=self.kwargs.get('slug',''))
+        return instance
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy("wines:list")
+    

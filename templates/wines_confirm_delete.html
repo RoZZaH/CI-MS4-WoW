@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}Wines: {{ wine.name }}{% endblock extra_title %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="image-container my-5">
+            {% if wine.image %}
+            <a 
+                href="{{ wine.image.url }}" target="_blank">
+            <img
+                class="card-img-top img-fluid" 
+                src="{{ wine.image.url }}" 
+                alt="{{ wine.name }}" />
+            </a>
+            {% else %}
+            <img
+                class="card-img-top img-fluid" 
+                src="{{ MEDIA_URL }}noimage.png" 
+                alt="{{ wine.name }}" />
+            {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="product-details-container mb-5 mt-md-5">
+                <p class="mb-0">{{wine.name}}</p>
+                 {% if wine.discounted_price %}
+                <p class="lead mb-0 text-left font-weight-bold"><small><strike>&euro;{{ wine.list_price }}</strike></small> <b>&euro;{{ wine.discounted_price}}</b></p>
+                {% else %}
+                <p class="lead mb-0 text-left font-weight-bold">&euro;{{ wine.list_price }}</p>
+                {% endif %}
+                
+                {% if wine.wtype %}
+                <p class="small mt-1 mb-0">
+                    <a 
+                        href="{% url 'wines:type' wtype=wine.wtype %}" 
+                        class="text-muted"
+                        ><i class="fas fa-tag mr-1"></i>{{ wine.get_wtype_display }}</a>
+                </p>
+                {% endif %}
+
+                {% if wine.star_rating %}
+                <small class="text-muted"><i class="fas fa-star mr-1"></i> {{ wine.star_rating }}</small>
+                {% else %}
+                <small class="text-muted">No Rating</small>
+                {% endif %}
+                <p class="mt-3">{{ wine.description }}</p>
+                <form method="POST" action="{% url 'wines:delete' slug=wine.slug %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="text-right">
+                    <a href="{% url 'wines:list' %}" 
+                    class="btn btn-outline-black rounded-0"
+                    >Cancel</a>
+                    <button class="btn btn-danger rounded-0" type="submit">DELETE</button>
+                </div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

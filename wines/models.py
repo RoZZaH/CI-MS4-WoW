@@ -92,7 +92,7 @@ class Wine(TimeStampedModel):
     style = models.CharField("Style", max_length=60, 
                             choices=Style.choices, default=Style.UNSPECIFIED)
 
-    region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, blank=True, null=True)
+    region = models.ForeignKey(Region, on_delete=models.DO_NOTHING, blank=True, null=True, related_name="region")
    
     list_price = models.DecimalField(max_digits=6, decimal_places=2, default=999.99, blank=False)
     discounted_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)

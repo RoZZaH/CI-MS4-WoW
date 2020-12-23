@@ -32,6 +32,7 @@ class CustomerProfile(UpdateView):
         messages.add_message(self.request, messages.SUCCESS, "Profile updated successfully")
         return reverse("customers:profile")
 
+    #Update failed message form_is_valid()
 
 class OrderHistory(DetailView):
 

@@ -13,6 +13,18 @@ urlpatterns = [
         view=views.WineSpecials.as_view(),
         name='specials'),
     path(
+        route='add/',
+        view=views.AddWine.as_view(),
+        name='add'),
+    path(
+        route='edit/<slug:slug>/',
+        view=views.EditWine.as_view(),
+        name='edit'),
+    path(
+        route='delete/<slug:slug>/',
+        view=views.DeleteWine.as_view(),
+        name='delete'),
+    path(
         route='type/<str:wtype>/',
         view=views.WineTypeView.as_view(),
         name='type'),
