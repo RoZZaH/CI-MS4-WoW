@@ -4,7 +4,7 @@ from django.views.generic import DetailView, TemplateView, FormView
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
+# from django.dispatch import receiver
 
 from .models import Customer
 from .forms import CustomerForm

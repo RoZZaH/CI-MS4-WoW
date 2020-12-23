@@ -29,7 +29,7 @@ def cache_checkout_payform_data(request):
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, "Sorry, your payment cannot be \
-            processed right now. Pleas try again later.")
+            processed right now. Please try again later.")
         return HttpResponse(content=e, status=400)
 
 
@@ -142,23 +142,6 @@ class CheckoutView(View):
 
 
 
-# def checkout_success(request, order_number):
-#     save_info = request.session.get("save_info")
-#     order = get_object_or_404(Order, order_number=order_number)
-    
-#     messages.success(request, f"Order successfully processed! \
-#             Your order number is {order_number}. \
-#             A confirmation email will be sent to {order.email}")
-
-#     if "basket" in request.session:
-#         del request.session["basket"]
-    
-#     template = "checkout_success.html"
-#     context = {
-#         "order": order,
-#     }
-#     return render(request, template, context)
-
 class CheckoutSuccessView(TemplateView): #DetailView requires slug or pk
     model = Order
     template_name = "checkout_success.html"
@@ -192,8 +175,8 @@ class CheckoutSuccessView(TemplateView): #DetailView requires slug or pk
 
     def get_context_data(self, **kwargs):
         order = self.get_object()
-        if 'basket' in self.request.session:
-            del self.request.session['basket']
+        # if 'basket' in self.request.session:
+        #     del self.request.session['basket']
         messages.success(self.request, (f"Order successfully processed! \
             Your order number is {order.order_number}. \
             A confirmation email will be sent to {order.email}"))

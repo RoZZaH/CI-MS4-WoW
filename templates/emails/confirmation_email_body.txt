@@ -1,0 +1,27 @@
+Dear {{ order.full_name }},
+
+Please find details of your recent wine order :
+
+Order Number: {{ order.order_number }}
+Order Date: {{ order.date }}
+
+Order Total: &euro;{{ order.order_total }}
+Delivery: &euro;{{ order.delivery_cost }}
+Grand Total: &euro;{{ order.grand_total }}
+
+We will be delivering to :
+{{ order.street_address1 }}
+{{ order.town_or_city }}
+in the next day or so.
+
+The courier company will send you an alert, on {{ order.phone_number }}
+when an expected delivery slot the night before.
+
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Thank you for your order!
+
+Sincerely,
+
+Boutique Ado
