@@ -12,6 +12,8 @@ from django.views.generic import DetailView, TemplateView
 from basket.contexts import basket_contents
 from .models import Order, OrderLineItem
 from wines.models import Wine
+from customers.models import Customer
+from customers.forms import CustomerForm
 
 
 @require_POST
@@ -33,9 +35,6 @@ def cache_checkout_payform_data(request):
 
 
 class CheckoutView(View):  
-# Display Form
-# on error - display validation errors
-# on success redirect to success url
 
     form_class = OrderForm
 
@@ -57,7 +56,24 @@ class CheckoutView(View):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = self.form_class()
+        if request.user.is_authenticated:
+            try:
+                profile = Customer.objects.get(user=request.user)
+                order_form = self.form_class(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.primary_phone_number,
+                    'country': profile.primary_country,
+                    'postcode': profile.primary_postcode,
+                    'town_or_city': profile.primary_town_or_city,
+                    'street_address1': profile.primary_street_address1,
+                    'street_address2': profile.primary_street_address2,
+                    'county': profile.primary_county,
+                })
+            except Customer.DoesNotExist:
+                order_form = self.form_class()
+        else:
+            order_form = self.form_class()
 
         if not self.stripe_public_key:
             messages.warning(request, ('Stripe public key is missing. '
@@ -146,36 +162,43 @@ class CheckoutView(View):
 class CheckoutSuccessView(TemplateView): #DetailView requires slug or pk
     model = Order
     template_name = "checkout_success.html"
-    # save_info = request.session.get("save_info")
-    
-    def setup(self, request, *args, **kwargs):
-        print("baseket removed")
-        return super().setup(request, *args, **kwargs)
 
-    
-    # success_message = tt
- 
-    
-    def get_context_data(self, **kwargs):
-        # del signal on Orser.save()
+    def get_object(self, **kwargs):
+        save_info = self.request.session.get("save_info")
         order_number = self.kwargs["order_number"]
         order = self.model.objects.get(order_number=order_number)
+        if self.request.user.is_authenticated:
+            profile = Customer.objects.get(user=self.request.user)
+            # Attach the user's profile to the order
+            order.customer = profile
+            order.save()
+
+            # Save the user's info
+            if save_info:
+                profile_data = {
+                    'primary_phone_number': order.phone_number,
+                    'primary_country': order.country,
+                    'primary_postcode': order.postcode,
+                    'primary_town_or_city': order.town_or_city,
+                    'primary_street_address1': order.street_address1,
+                    'primary_street_address2': order.street_address2,
+                    'primary_county': order.county,
+                }
+                customer_profile_form = CustomerForm(profile_data, instance=profile)
+                if customer_profile_form.is_valid():
+                    customer_profile_form.save()
+        return order
+
+
+    def get_context_data(self, **kwargs):
+        order = self.get_object()
+        if 'basket' in self.request.session:
+            del self.request.session['basket']
         messages.success(self.request, (f"Order successfully processed! \
-            Your order number is {order_number}. \
+            Your order number is {order.order_number}. \
             A confirmation email will be sent to {order.email}"))
         context = super().get_context_data(**kwargs)
         context["order"] = order
+        context["from_profile"] = True
         return context
     
-
-    # (self):
-    #     qs = super().get_queryset()
-    #     return qs.filter(order_number=self.order_number)
-
-    
-
-    
-    # context = {
-    #     "order": order,
-    # }
-    # return render(request, template, context)

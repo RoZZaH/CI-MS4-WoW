@@ -17,7 +17,7 @@ let style = {
         iconColor: '#dc3545'
     }
 };
-let card = elements.create('card', {style: style});
+let card = elements.create('card', {hidePostalCode : true, style: style});
 card.mount('#card-element');
 
 // Handle realtime validation errors on the card element

@@ -228,10 +228,10 @@ input[name='q']::placeholder {
     user-select: none;
     background-color: #000;
     border: 1px solid #000;
+    border-radius: 0 !important;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: 0;
 
     /* standard bootstrap btn transitions */
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
