@@ -1,5 +1,7 @@
 from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.db.models.functions import Coalesce
@@ -81,7 +83,26 @@ class WineSpecials(ListView):
         qs = super().get_queryset()
         return qs.filter(discounted_price__isnull=False)
 
-class AddWine(CreateView):
+
+class AccessControlMixin(PermissionRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if(not self.request.user.is_authenticated):
+            return redirect_to_login(
+                self.request.get.full_path(),
+                self.get_login_url(),
+                self.get_redirect_field_name())
+        if not self.has_permission():
+            return redirect("/wines/")
+        return super(AccessControlMixin, self).dispatch(request, *args, **kwargs)
+
+
+class AddWine(AccessControlMixin, CreateView):
+    # raise_exception = False
+    permission_required = "wines.change_wines"
+    # permission_denied_message = ""
+    login_url = "/wines/"
+    redirect_field_name = "next"
+
     form_class = WineForm
     template_name = "wines_add.html"
 
@@ -89,7 +110,13 @@ class AddWine(CreateView):
         return reverse("wines:add")
 
 
-class EditWine(UpdateView):
+class EditWine(AccessControlMixin, UpdateView):
+    # raise_exception = True
+    permission_required = "wines.change_wines"
+    # permission_denied_message = ""
+    login_url = "/wines/"
+    # redirect_field_name = "next"
+
     model = Wine
     form_class = WineForm
     template_name = "wines_update.html"
@@ -102,7 +129,9 @@ class EditWine(UpdateView):
         return reverse_lazy("wines:detail", kwargs={"slug": self.kwargs.get('slug','') })
 
 
-class DeleteWine(DeleteView):
+class DeleteWine(AccessControlMixin, DeleteView):
+    permission_required = "wines.change_wines"
+    
     model = Wine
     template_name = "wines_confirm_delete.html"
 

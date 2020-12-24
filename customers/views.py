@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import DetailView, TemplateView, FormView
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db.models.signals import post_save, post_delete
 # from django.dispatch import receiver
@@ -12,7 +13,7 @@ from .forms import CustomerForm
 from checkout.models import Order
 
 
-class CustomerProfile(UpdateView):
+class CustomerProfile(LoginRequiredMixin, UpdateView):
     template_name = "customers_profile.html"
     model = Customer
     form_class = CustomerForm

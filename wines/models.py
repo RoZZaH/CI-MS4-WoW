@@ -47,7 +47,7 @@ class Wine(TimeStampedModel):
     description = models.TextField("Description", blank=True)
     slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField("", null=True, blank=True)
 
     class Type(models.TextChoices):
         RED = "red", "Red"

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites', #added, allows proper callbacks for connecting via socialaccount - try it in own project
     'django_extensions', #django shell_plus
+    'django.forms', #changed FORM_RENDERER
     'allauth', #added
     'allauth.account', #added
     'allauth.socialaccount', #added
@@ -101,6 +102,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 # MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
