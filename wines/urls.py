@@ -26,7 +26,7 @@ urlpatterns = [
         name='delete'),
     path(
         route='type/<str:wtype>/',
-        view=views.WineTypeView.as_view(),
+        view=views.WineListView.as_view(),
         name='type'),
     path(
         route='<slug:slug>/',

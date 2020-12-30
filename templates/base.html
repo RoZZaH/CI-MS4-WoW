@@ -5,6 +5,7 @@
     {% block meta %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
     {% endblock meta %}
 
     {% block extrameta %}
@@ -64,7 +65,7 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'basket:list' %}">
+                        <a class="{% if grand_total %}text-cherry font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'basket:list' %}">
                             <div class="text-center">
                                 <div><i class="far fa-shopping-basket fa-lg"></i></div>
                                 <p class="my-0">
@@ -85,8 +86,10 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                {% spaceless %}
                 {% include 'includes/_mobileheader.html' %}
-                {% include 'includes/_mainnav.html' %}
+                {% include 'includes/_headernav.html' %}
+                {% endspaceless %}
             </nav>
         </div>
         {% if grand_total < 5 %}
@@ -121,7 +124,7 @@
 
     {% block content %}
     {% endblock content %}
-    {% include 'includes/_mainfooter.html' %}
+    {% include 'includes/_footer.html' %}
     {% block corejs %}
     <!-- UI/UX -->
     <script src="https://kit.fontawesome.com/61f1a208df.js" crossorigin="anonymous"></script>

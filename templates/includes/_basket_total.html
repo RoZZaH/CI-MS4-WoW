@@ -1,10 +1,10 @@
-<h6><strong>Basket Total: &euro;{{ total|floatformat:2 }}</strong></h6>
-<h6>{% if not delivery_charge %}
+<h6 class="sans-font"><strong>Basket Total: &euro;{{ total|floatformat:2 }}</strong></h6>
+<h6 class="sans-font">{% if not delivery_charge %}
     <span class="text-upper">FREE Delivery</span> (<strike>&euro;0.00</strike>)
     {% else %}
     Delivery: &euro;{{ delivery_charge|floatformat:2 }}
     {% endif %}</h6>
-<h4 class="mt-4"><strong>Grand Total: &euro;{{ grand_total|floatformat:2 }}</strong></h4>
+<h4 class="mt-4 sans-font"><strong>Grand Total: &euro;{{ grand_total|floatformat:2 }}</strong></h4>
 {% if free_delivery_delta > 0 %}
     <p class="mb-1 text-danger">
         You could get free delivery by ordering just <strong>{{ free_delivery_delta }}</strong> more bottle{% if free_delivery_delta > 1 %}s {%endif %}!

@@ -29,7 +29,6 @@
                         <div class="col-10">
                             <p class="my-0 small text-muted">{{ item.bottle.winery.name }}</p>
                             <p class="my-0"><strong>{{ item.bottle.name }} - {{ item.bottle.vintage }}</strong></p>
-                            <!-- <p class="my-0 small">Size: {% if item.product.has_sizes %}{{ item.size|upper }}{% else %}N/A{% endif %}</p> -->
                             <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
                         </div>
                     </div>
@@ -42,7 +41,7 @@
                         <span class="float-right">&euro;{{ total|floatformat:2 }}</span>
                     </p></strong>
                     {% if free_delivery_delta > 0 %}
-                        <p class="mb-0 p-2 bg-warning shadow-sm text-black text-center">
+                        <p class="mb-0 p-2 bg-danger shadow-sm text-white text-center">
                          You could get free delivery by ordering just<br><strong>{{ free_delivery_delta }}</strong> more bottle{% if free_delivery_delta > 1 %}s {%endif %}!
                         </p>
                     {% endif %}

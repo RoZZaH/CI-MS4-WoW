@@ -44,7 +44,7 @@
                             <span class="small"><a href="{% url 'wines:list' %}">Home</a> | </span>
                         {% endif %}
                         <!--- wine type -->
-                        {{ page_obj.paginator.count }} Wines{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                        {{ page_obj.paginator.count }} {% if wtype %}{{ wtype|title }}{% endif %} Wine{% if page_obj.paginator.count > 1 %}s{% endif %} {% if special_offers %}{{ special_offers}}{% endif %}{% if search_term %}found for <strong>"{{ search_term }}"</strong>{% endif %}
                     </p>
                 </div>
                 <!-- /sorting nav -->
@@ -65,9 +65,7 @@
                         >
                         {% if wine.image %}
                         <img
-                            {% comment %} class="card-img-top img-fluid" {% endcomment %}
                             class="card-img-top embed-responsive-item"
-                            {% comment %} height="120"  {% endcomment %}
                             src="{{ wine.image.url }}" 
                             alt="{{ wine.name }}" />
                         {% else %}
@@ -79,14 +77,14 @@
                         </a>
                         </div>
                         <div class="card-body pb-0">
-                            <p class="mb-0 font-weight-light">{{ wine.winery }}</p>
-                            <p class="mb-0 font-weight-bold">{{ wine.name }} {{ wine.vintage }}</p>
+                            <a href="{% url 'wines:detail' wine.slug %}" title="{{ wine.region }}">
+                            <p class="jet-black mb-0 font-weight-light">{{ wine.winery }} <img src="{{ wine.region.country.flag }}" alt="{{ wine.region }}" class="align-baseline" /></p>
+                            <p class="jet-black mb-0 font-weight-bold">{{ wine.name }} {{ wine.vintage }}</p>
                             {% if wine.discounted_price %}
                             <p class="lead mb-0 text-left font-weight-bold jet-black"><small><strike>&euro;{{ wine.list_price }}</strike></small> <b>&euro;{{ wine.discounted_price}}</b></p>
                             {% else %}
                             <p class="lead mb-0 text-left font-weight-bold jet-black">&euro;{{ wine.list_price }}</p>
                             {% endif %}
-
                             <p class="small mt-1 mb-1 text-cherry">
                             {% if wine.wtype %}
                                 <a class="text-cherry"
@@ -104,6 +102,7 @@
                             {{ wine.one_liner }}
                             {% endif %}
                             </p>
+                            </a>
                         </div>
                         {% comment %} <div class="card-footer bg-white pt-0 border-0 text-left">
                             <div class="row">

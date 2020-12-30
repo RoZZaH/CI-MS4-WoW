@@ -15,60 +15,49 @@ class WineListView(ListView):
     model = Wine
     paginate_by = 12
 
-   
     def get_queryset(self):
-        # qs = super().get_queryset()
-        # order_by if no sort key
-        qs = self.model.objects.all()
+
+        if 'wtype' in self.kwargs:
+            wtype = self.kwargs.get('wtype')
+            qs = self.model.objects.filter(wtype__icontains=wtype)
+        else:
+            qs = self.model.objects.all()
 
         def getDirection():
             return '-' if 'direction' in self.request.GET and self.request.GET['direction'] == 'desc' else ''
 
         sortkey = self.request.GET.get("sort")
-        sort = sortkey
         if sortkey == 'list_price':
             dir = getDirection()
-            qs = Wine.objects.annotate(final_price=Coalesce('discounted_price','list_price')).order_by(f'{dir}final_price')
+            qs = qs.annotate(final_price=Coalesce('discounted_price','list_price')).order_by(f'{dir}final_price')
      
         if sortkey == 'wtype':
             dir = getDirection()
-            qs = Wine.objects.order_by(f'{dir}wtype')
+            qs = qs.order_by(f'{dir}wtype')
 
         if sortkey == 'vintage':
             dir = getDirection()
-            qs = Wine.objects.order_by(f'{dir}vintage')
+            qs = qs.order_by(f'{dir}vintage')
 
         if sortkey == 'star_rating':
             dir = getDirection()
-            qs = Wine.objects.order_by(f'{dir}star_rating')
+            qs = qs.order_by(f'{dir}star_rating')
 
         q = self.request.GET.get("q")
         if q:
             qs = self.model.objects.filter(Q(name__icontains=q) | Q(description__icontains=q))
-        return qs
-  
+        return qs 
   
     def get_context_data(self, **kwargs):
         ctx = super(WineListView, self).get_context_data(**kwargs)
+        if 'wtype' in self.kwargs:
+            ctx['wtype'] = self.kwargs.get('wtype')
         if 'sort' in self.request.GET:
             current_sorting = f'{ self.request.GET["sort"] }|{self.request.GET["direction"]}'
             ctx['current_sorting'] = current_sorting
         if 'q' in self.request.GET:
             ctx['search_term'] = self.request.GET["q"]
         return ctx
-
-    
-
-
-
-class WineTypeView(ListView):
-
-    template_name = "wines_list.html"
-    model = Wine
-    paginate_by = 12
-    
-    def get_queryset(self, *args, **kwargs):
-        return Wine.objects.filter(wtype__icontains=self.kwargs.get('wtype'))
 
 
 class WineDetailView(DetailView):
@@ -86,6 +75,11 @@ class WineSpecials(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(discounted_price__isnull=False)
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['special_offers'] = 'on Special Offer'
+        return ctx
 
 
 class AccessControlMixin(PermissionRequiredMixin):

@@ -22,12 +22,8 @@
                     </span>
                 </button>
             </div>
-            {% comment %} {% if item.product.has_sizes %}
-                <input type="hidden" name="product_size" value="{{ item.size }}">
-            {% endif %} {% endcomment %}
         </div>
     </div>
 </form>
 <a class="update-link text-info"><small>Update</small></a>
-{% comment %} <a class="remove-item text-danger float-right" id="remove_{{ item.bottle_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a> {% endcomment %}
 <a class="remove-item text-danger float-right" id="remove_{{ item.bottle_id }}"><small>Remove</small></a>

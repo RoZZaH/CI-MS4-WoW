@@ -21,7 +21,7 @@
     </div>
 </li>
 <li class="list-inline-item dropdown">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-black nav-link d-block d-lg-none" href="{% url 'customers:profile' %}" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center">
             <div><i class="fas fa-user fa-lg"></i></div>
             <p class="my-0">My Account</p>
@@ -32,7 +32,7 @@
             {% if request.user.is_superuser %}
                 <a href="{% url 'wines:add' %}" class="dropdown-item">Product Mgt :: Add Wine</a>
             {% endif %}
-            <a href="#" class="dropdown-item">My Profile</a>
+            <a href="{% url 'customers:profile' %}" class="dropdown-item">My Profile</a>
             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
         {% else %}
             <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
@@ -41,13 +41,11 @@
     </div>
 </li>
 <li class="list-inline-item">
-    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="{% url 'basket:list' %}">
+    <a class="{% if grand_total %}text-cherry font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="{% url 'basket:list' %}">
         <div class="text-center">
             <div><i class="fas fa-shopping-bag fa-lg"></i></div>
             <p class="my-0">
-                {% if grand_total is delivery_cost %}
-                5 snots
-                {% elif grand_total > delivery_cost %}
+                {% if grand_total %}
                     &euro;{{ grand_total|floatformat:2 }}
                 {% else %}
                     &euro;0.00
