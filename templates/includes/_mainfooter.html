@@ -1,0 +1,46 @@
+<footer class="py-4" id="main-footer">
+    <div class="container text-center text-lg-left">
+      <div class="row d-flex justify-content-between flex-column flex-lg-row align-items-center align-items-lg-start">
+        <div class="d-flex flex-column col-10 col-lg-5 pl-0">
+          <h5><a href="{% url 'home' %}">World<span class="font-weight-light font-italic"> of </span>Wine</a></h5>
+          <p>Explore the world of fine wine! Let's us be your guide. New wines added every week.</p>
+          <ul class="list-inline d-flex mb-3 justify-content-center justify-content-lg-start" data-config-id="icons">
+            <li class="px-2"><a href="https://twitter.com"><i class="fab fa-twitter fa-lg"></i></a></li>
+            <li class="px-2"><a href="https://facebook.com"><i class="fab fa-facebook-f fa-lg"></i></a></li>
+            <li class="px-2"><a href="https://instagram.com"><i class="fab fa-instagram fa-lg"></i></a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Wines</h6>
+          <ul class="list-inline ml-0">
+            <li class="py-1"><a href="{% url 'wines:type' wtype='red' %}">Red</a></li>
+            <li class="py-1"><a href="{% url 'wines:type' wtype='white' %}">White</a></li>
+            <li class="py-1"><a href="{% url 'wines:type' wtype='rose' %}">Ros&eacute;</a></li>
+            <li class="py-1"><a href="{% url 'wines:type' wtype='sparkling' %}">Sparkling</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>About World of Wine</h6>
+          <ul class="list-inline ml-">
+            <li class="py-1"><a href="{% url 'home' %}">Our Story</a></li>
+            <li class="py-1"><a href="{% url 'home' %}">Our Staff</a></li>
+            <li class="py-1"><a href="{% url 'home' %}">Our Shop</a></li>
+            <li class="py-1"><a href="{% url 'home' %}">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Contact</h6>
+          <ul class="list-inline ml-0">
+            <li class="py-1"><a href="mailto:hello@worldofwine.com">hello@worldofwine.com</a></li>
+            <li class="py-1"><a href="tel:+353539145550">(053) 914 5550</a></li>
+            <li class="py-1"><a href="{% url 'home' %}">Selskar Lane, Wexford</a></li>
+          </ul>
+        </div>
+        <div class="w-100 border-top my-3"></div>
+      </div>
+      <div class="flex-column flex-sm-row align-items-center justify-content-sm-between">
+        <a href="{% url 'home' %}">Terms and conditions</a>
+        <p class="mb-0 small text-muted">&copy; 2020 RoZZaH. All right reserved.</p>
+      </div>
+    </div>
+  </footer>

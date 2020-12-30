@@ -30,7 +30,7 @@
     <div class="dropdown-menu border-0" aria-labelledby="user-options">
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
-                <a href="{% url 'wines:add' %}" class="dropdown-item">Product Management</a>
+                <a href="{% url 'wines:add' %}" class="dropdown-item">Product Mgt :: Add Wine</a>
             {% endif %}
             <a href="#" class="dropdown-item">My Profile</a>
             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
@@ -45,7 +45,9 @@
         <div class="text-center">
             <div><i class="fas fa-shopping-bag fa-lg"></i></div>
             <p class="my-0">
-                {% if grand_total %}
+                {% if grand_total is delivery_cost %}
+                5 snots
+                {% elif grand_total > delivery_cost %}
                     &euro;{{ grand_total|floatformat:2 }}
                 {% else %}
                     &euro;0.00

@@ -21,6 +21,7 @@ class WineryAdmin(admin.ModelAdmin):
 
 class WineAdmin(admin.ModelAdmin):
     list_display = (
+        'pk',
         'winery',
         'name',
         'wtype',
@@ -37,7 +38,7 @@ class WineAdmin(admin.ModelAdmin):
         return obj.region
 
 
-    ordering = ('vintage', 'region', 'winery')
+    ordering = ('pk', 'vintage', 'region', 'winery')
     
 admin.site.register(Wine, WineAdmin)
 admin.site.register(Winery, WineryAdmin)

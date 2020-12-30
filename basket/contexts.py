@@ -10,7 +10,7 @@ def basket_contents(request):
     basket_items = []
     total = 0
     bottle_count = 0
-    delivery_charge = 0
+    delivery_cost = 0
     basket = request.session.get("basket", {})
 
     for bottle_id, quantity in basket.items():
@@ -28,12 +28,12 @@ def basket_contents(request):
 
     if bottle_count < settings.FREE_DELIVERY_THRESHOLD:
         if bottle_count <= 5:
-            delivery_charge = Decimal(2 * settings.STANDARD_DELIVERY_CHARGE)
+            delivery_cost = Decimal(2 * settings.STANDARD_DELIVERY_CHARGE)
         if bottle_count <= 2:
-            delivery_charge = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+            delivery_cost = Decimal(settings.STANDARD_DELIVERY_CHARGE)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - bottle_count
     else:
-        delivery_charge = 0
+        delivery_cost = 0
         free_delivery_delta = 0
     
 
@@ -41,10 +41,10 @@ def basket_contents(request):
         "basket_items": basket_items,
         "total": total,
         "bottle_count": bottle_count,
-        "delivery_charge": delivery_charge,
+        "delivery_charge": delivery_cost,
         "free_delivery_delta": free_delivery_delta,
         "free_delivery_threshold": settings.FREE_DELIVERY_THRESHOLD,
-        "grand_total": total,
+        "grand_total": total+delivery_cost if (total+delivery_cost > settings.STANDARD_DELIVERY_CHARGE) else 0
     }
 
     return context

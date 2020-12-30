@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
-<div class="container mb-2">
+<div class="container mb-2 {% if not basket_items %} h-75 {% endif %}">
     <div class="row">
         <div class="col text-center">
             <hr class="w-50">    
@@ -87,8 +86,7 @@
 {% include "includes/_basket_quantity-buttons-logic.html" %}
 
 <script type="text/javascript">
-    {% comment %} document.querySelector(".btt-link").addEventListener("click", function(e){window.scrollTo(0,0)}); {% endcomment %}
-    // Update quantity on click
+     // Update quantity on click
     $('.update-link').click(function(e) {
         console.log("click_update")
         var form = $(this).prev('.update-form');
@@ -100,20 +98,10 @@
         var csrfToken = "{{ csrf_token }}";
         console.log(csrfToken )
         var itemId = $(this).attr('id').split('remove_')[1];
-        //var size = $(this).data('product_size');
         var url = `/basket/remove/${itemId}/`;
-        //var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
-        //var data = {'csrfmiddlewaretoken': csrfToken };
-
-        /*$.post(url, data)
-         .done(function() {
-             location.reload();
-         }); */
-
         let csrftoken = getCookie('csrftoken');
         fetch(url, {
             method: 'POST',
-         //   body: JSON.stringify(data),
             headers: { "X-CSRFToken": csrftoken },
         }).then(()=>location.reload());
 
@@ -128,7 +116,6 @@ function getCookie(name) {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;

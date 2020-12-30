@@ -11,16 +11,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
-            <div class="image-container my-5">
+    <div class="row no-gutters">
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2 my-auto">
+            <div class="h-25 offset-lg-2 text-center">
             {% if wine.image %}
             <a 
                 href="{{ wine.image.url }}" target="_blank">
             <img
-                class="card-img-top img-fluid" 
+                {% comment %} class="card-img-top" {% endcomment %}
                 src="{{ wine.image.url }}" 
                 alt="{{ wine.name }}" />
             </a>
@@ -33,94 +32,87 @@
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="product-details-container mb-5 mt-md-5">
-                <p class="mb-0">{{wine.name}}</p>
-                 {% if wine.discounted_price %}
-                <p class="lead mb-0 text-left font-weight-bold"><small><strike>&euro;{{ wine.list_price }}</strike></small> <b>&euro;{{ wine.discounted_price}}</b></p>
-                {% else %}
-                <p class="lead mb-0 text-left font-weight-bold">&euro;{{ wine.list_price }}</p>
-                {% endif %}
-                
-                {% if wine.wtype %}
-                <p class="small mt-1 mb-0">
-                    <a 
-                        href="{% url 'wines:type' wtype=wine.wtype %}" 
-                        class="text-muted"
-                        ><i class="fas fa-tag mr-1"></i>{{ wine.get_wtype_display }}</a>
-                </p>
-                {% endif %}
-
-                {% if wine.star_rating %}
-                <small class="text-muted"><i class="fas fa-star mr-1"></i> {{ wine.star_rating }}</small>
-                {% else %}
-                <small class="text-muted">No Rating</small>
-                {% endif %}
+            <div class="product-details-container mb-2 mt-md-5">
                 {% if request.user.is_superuser %}
                     <small class="ml-3">
                         <a href="{% url 'wines:edit' slug=wine.slug %}">Edit</a> | 
                         <a class="text-danger" href="{% url 'wines:delete' slug=wine.slug  %}">Delete</a>
                     </small>
                 {% endif %}
-                <p class="mt-3">{{ wine.description }}</p>
-                 <form class="form" action="{% url 'basket:add' wine.slug %}" method="POST">
-                        {% csrf_token %}
-                        <div class="form-row">
-                            {% comment %} {% with product.has_sizes as s %}
-                            {% if s %}
-                                <div class="col-12">
-                                    <p><strong>Size:</strong></p>
-                                    <select class="form-control rounded-0 w-50" name="product_size" id='id_product_size'>
-                                        <option value="xs">XS</option>
-                                        <option value="s">S</option>
-                                        <option value="m" selected>M</option>
-                                        <option value="l">L</option>
-                                        <option value="xl">XL</option>
-                                    </select>
-                                </div>
-                            {% endif %} {% endcomment %}
-                            <div class="col-12">
-                                <p class="mt-3"><strong>Quantity:</strong></p>
-                                <div class="form-group w-50">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <button class="decrement-qty btn btn-black rounded-0" 
-                                                data-item_id="{{ wine.slug }}" id="decrement-qty_{{ wine.slug }}">
-                                                <span class="icon">
-                                                    <i class="fas fa-minus"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <input class="form-control qty_input" type="number"
-                                            name="quantity" value="1" min="1" max="99"
-                                            data-item_id="{{ wine.slug }}"
-                                            id="id_qty_{{ wine.slug }}">
-                                        <div class="input-group-append">
-                                            <button class="increment-qty btn btn-black rounded-0"
-                                                data-item_id="{{ wine.slug }}" id="increment-qty_{{ wine.slug }}">
-                                                <span class="icon">
-                                                    <i class="fas fa-plus"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col{% if s %}-12 mt-2{% endif %}">
-                                <a href="{% url 'wines:list' %}" class="btn btn-outline-black rounded-0 mt-5">
-                                    <span class="icon">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="text-uppercase">Keep Shopping</span>
-                                </a>
-                                <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Basket">
-                            </div>
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}"><!-- current url -->
-                            {% comment %} {% endwith %} {% endcomment %}
-                        </div>
-                    </form>
+                <h5 class="mb-1 font-italic">{{wine.winery}}</h5>
+                <h4 class="mb-1 font-weight-bold">{{ wine.name }} {{ wine.vintage }}</h4>
+                 {% if wine.discounted_price %}
+                <p class="lead mb-0 text-left font-weight-bold"><small><strike>&euro;{{ wine.list_price }}</strike></small> <b>&euro;{{ wine.discounted_price}}</b></p>
+                {% else %}
+                <p class="lead mb-0 text-left font-weight-bold">&euro;{{ wine.list_price }}</p>
+                {% endif %}
+                
+                <p class="my-2 text-cherry">
+                {% if wine.wtype %}
+                    <a class="text-cherry"
+                        href="{% url 'wines:type' wtype=wine.wtype %}" 
+                        ><i class="fad fa-wine-glass-alt"></i> {{ wine.get_wtype_display }} </a>
+                {% endif %}
+                {% if wine.star_rating %}
+                &nbsp;<i class="fas fa-star mr-1"></i>{{ wine.star_rating }} &nbsp;[ {{wine.parker_points}} ]
+                {% else %}
+                <small class="text-muted">No Rating</small>
+                {% endif %}
+                </p>
+                <h6>{{ wine.style|title }}</h6>
+                <p class="mt-1">{{ wine.one_liner }}</p>
+                <p class="mt-1 smaller font-italic">{{ wine.description }}</p>
             </div>
-            
+        </div>
+    </div>
+    <div class="row mb-5 no-gutters">
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2 text-center">
+            <a href="{% url 'wines:list' %}" class="btn btn-outline-black rounded-0 mt-5 offset-lg-2">
+                <span class="icon">
+                    <i class="fas fa-chevron-left"></i>
+                </span>
+                <span class="text-uppercase">Keep Shopping</span>
+            </a>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <form class="form" action="{% url 'basket:add' wine.slug %}" method="POST">
+                {% csrf_token %}
+                {% comment %} <div class="form-row"> {% endcomment %}
+                    {% comment %} <div class="col-12"> {% endcomment %}
+                        <p class="mt-2"><strong>Add Bottles:</strong></p>
+                        <div class="row no-gutters">
+                        <div class="col-12 col-md-6 py-sm-4 px-sm-2 p-md-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="decrement-qty btn btn-black rounded-0" 
+                                        data-item_id="{{ wine.slug }}" id="decrement-qty_{{ wine.slug }}">
+                                        <span class="icon">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <input class="form-control qty_input" type="number"
+                                    name="quantity" value="1" min="1" max="99"
+                                    data-item_id="{{ wine.slug }}"
+                                    id="id_qty_{{ wine.slug }}">
+                                <div class="input-group-append">
+                                    <button class="increment-qty btn btn-black rounded-0"
+                                        data-item_id="{{ wine.slug }}" id="increment-qty_{{ wine.slug }}">
+                                        <span class="icon">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-auto col-12 col-md-5 py-sm-4 px-sm-2 p-md-0 text-right">
+                            <input type="submit" class="btn btn-black rounded-0 text-uppercase form-control" value="Add to Basket">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </div>        
+                        </div>
+                    {% comment %} </div> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
+            </form>
         </div>
     </div>
 </div>

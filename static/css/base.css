@@ -1,13 +1,41 @@
+:root {
+    --main-bg-color: #46001a;
+    --main-bg-col-focus: #6e032a;
+}
+
+#delivery-banner {
+    background: rgb(70,0,26);
+    background: linear-gradient(126deg,  rgba(112,0,42,1) 0%, rgba(70,0,26,1) 85%);
+}
+
 html {
     height: 100%;
 }
 
 body {
-    background: url('/media/homepage_bg.jpg');
-    background-size: cover;
     height: calc(100vh - 164px);
     color: #555;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    font-family: 'Droid-Serif', serif;
+    /* font-style: italic; */
+}
+
+.serif-font {
+    font-family: 'Droid-Serif', serif;
+
+}
+
+.sans-font {
+    font-family: 'Lato', sans-serif;
+}
+
+.homepage {
+    background: url('/media/homepage_bg.jpg');
+    background-size: cover;
 }
 
 /* from Bulma for FontAwesome icons */
@@ -28,56 +56,60 @@ body {
 }
 
 .shop-now-button {
-    background: black;
+    background: var(--main-bg-col-focus);
     color: white;
     min-width: 260px;
 }
 
 .btn-black {
-    background: black;
+    background: var(--main-bg-color);
     color: white;
 }
 
 .btn-outline-black {
     background: white;
-    color: black !important; /* use important to override link colors for <a> elements */
-    border: 1px solid black;
+    color: var(--main-bg-color) !important; /* use important to override link colors for <a> elements */
+    border: 1px solid var(--main-bg-color);
+}
+
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus {
+    background-color: rgb(207, 47, 82);
+    color: white !important;
 }
 
 .btn-outline-black:hover,
 .btn-outline-black:active,
 .btn-outline-black:focus {
-    background: black;
+    background: var(--main-bg-color);
     color: white !important;
 }
 
-.shop-now-button:hover,
-.shop-now-button:active,
-.shop-now-button:focus,
+
 .btn-black:hover,
 .btn-black:active,
 .btn-black:focus {
-    background: #222;
+    background: var(--main-bg-col-focus);
     color: white;
 }
 
 .text-black {
-    color: #000 !important;
+    color: var(--main-bg-color) !important;
 }
 
-h1.text-black {
-    background-color: rgba(255,255,255,0.45);
-    text-shadow: 2px 2px 2px #ffffff;
-    padding: .5em .25em;
+.text-cherry {
+    color: var(--main-bg-col-focus);
 }
+
 
 .border-black {
-    border: 1px solid black !important;
+    border: 1px solid var(--main-bg-color) !important;
 }
 
 
 .bg-black {
-    background: #000 !important;
+    background: var(--main-bg-color) !important;
 }
 
 
@@ -122,8 +154,18 @@ h1.text-black {
     height: 2px;
 }
 
+.header-liner {
+    background-color: var(--main-bg-color);
+    height: 4px;
+}
+
 input[name='q']::placeholder {
     color: #aab7c4;
+}
+
+.embed-responsive .card-img-top {
+    object-fit: contain;
+    /* object-position: 0 50%; */
 }
 
 /* for MS EDGE */
@@ -149,7 +191,7 @@ input[name='q']::placeholder {
     height: 0; 
     border-left: 4px solid transparent;
     border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
+    border-bottom: 10px solid var(--main-bg-color);
     position: absolute;
     top: -10px;
     right: 36px;
@@ -202,7 +244,7 @@ input[name='q']::placeholder {
 }
 
 .allauth-form-inner-content input {
-    border-color: #000;
+    border-color: var(--main-bg-color);
     border-radius: 0;
 }
 
@@ -226,8 +268,8 @@ input[name='q']::placeholder {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: #000;
-    border: 1px solid #000;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--main-bg-color);
     border-radius: 0 !important;
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -277,8 +319,41 @@ input[name='q']::placeholder {
 }
 
 
+/* footer */
 
 
+
+#main-footer a:hover i,
+#main-footer a {
+    color: #fff;
+}
+
+#main-footer a i,
+#main-footer {
+    background: var(--main-bg-color);
+    background: 
+        linear-gradient(180deg, #5c0122 0%, #3f0118 85%);
+    color:rgb(170, 170, 170);
+}
+
+#main-footer i a,
+#main-footer a:link {
+    text-decoration: none;
+}
+
+#main-footer a:hover {
+    text-decoration: underline;
+}
+
+.jet-black {
+    color: #140303 !important;
+}
+
+h1.jet-black {
+    background-color: rgba(255,255,255,0.45);
+    text-shadow: 2px 2px 2px #ffecec;
+    padding: .5em .25em;
+}
 
 /* Media Queries */
 
@@ -302,6 +377,12 @@ input[name='q']::placeholder {
     .header-container {
         padding-top: 164px;
     }
+
+    /* .homepage #main-footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    } */
 }
 
 /* padding top on smaller screens */

@@ -34,6 +34,10 @@ class WineListView(ListView):
             dir = getDirection()
             qs = Wine.objects.order_by(f'{dir}wtype')
 
+        if sortkey == 'vintage':
+            dir = getDirection()
+            qs = Wine.objects.order_by(f'{dir}vintage')
+
         if sortkey == 'star_rating':
             dir = getDirection()
             qs = Wine.objects.order_by(f'{dir}star_rating')
@@ -61,7 +65,7 @@ class WineTypeView(ListView):
 
     template_name = "wines_list.html"
     model = Wine
-    paginate_by = 5
+    paginate_by = 12
     
     def get_queryset(self, *args, **kwargs):
         return Wine.objects.filter(wtype__icontains=self.kwargs.get('wtype'))
@@ -77,7 +81,7 @@ class WineSpecials(ListView):
     
     template_name = "wines_list.html"
     model = Wine
-    paginate_by = 5
+    paginate_by = 12
 
     def get_queryset(self):
         qs = super().get_queryset()

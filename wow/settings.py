@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_countries',
     'crispy_forms',
     # Local Apps
+    # "wow.management.commands",
     "wines",
     "basket",
     "checkout",
@@ -90,6 +91,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'my_tags': 'templates.ttags.basket_tools',
+                'helpers': 'templates.ttags.helpers',
             },
             'context_processors': [
                 'django.template.context_processors.debug',

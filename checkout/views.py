@@ -175,8 +175,8 @@ class CheckoutSuccessView(TemplateView): #DetailView requires slug or pk
 
     def get_context_data(self, **kwargs):
         order = self.get_object()
-        # if 'basket' in self.request.session:
-        #     del self.request.session['basket']
+        if 'basket' in self.request.session:
+            del self.request.session['basket']
         messages.success(self.request, (f"Order successfully processed! \
             Your order number is {order.order_number}. \
             A confirmation email will be sent to {order.email}"))

@@ -1,4 +1,5 @@
 {% load static %}
+{% load helpers %}
 <html>
     <head>
     {% block meta %}
@@ -12,7 +13,7 @@
     {% block corecss %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&fmaily=Droid+Serif:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static '/css/base.css' %}">
     {% endblock corecss %}
 
@@ -20,7 +21,7 @@
 
     <title>World of Wines {% block extra_title %}{% endblock %}</title>
     </head>
-    <body>
+    <body class="{% is_homepage %}">
         <header class="container-fluid fixed-top">
         <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
@@ -67,7 +68,7 @@
                             <div class="text-center">
                                 <div><i class="far fa-shopping-basket fa-lg"></i></div>
                                 <p class="my-0">
-                                    {% if grand_total %}
+                                    {% if grand_total > 5 %}
                                         &euro;{{ grand_total|floatformat:2 }}
                                     {% else %}
                                         &euro;0.00
@@ -88,11 +89,15 @@
                 {% include 'includes/_mainnav.html' %}
             </nav>
         </div>
+        {% if grand_total < 5 %}
         <div id="delivery-banner" class="row text-center">
-            <div class="col bg-black text-white">
+            <div class="col text-white">
                 <h4 class="logo-font my-1">Free delivery on orders of {{ free_delivery_threshold }} bottles or over (1+ cases)!</h4>                
             </div>            
         </div>
+        {% else %}
+        <div id="delivery-banner" class="row header-liner"></div>
+        {% endif %}
         </header>
     {% if messages %}
         <div class="messages-container">
@@ -116,7 +121,7 @@
 
     {% block content %}
     {% endblock content %}
-    
+    {% include 'includes/_mainfooter.html' %}
     {% block corejs %}
     <!-- UI/UX -->
     <script src="https://kit.fontawesome.com/61f1a208df.js" crossorigin="anonymous"></script>

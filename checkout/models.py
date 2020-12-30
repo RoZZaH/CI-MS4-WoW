@@ -1,3 +1,4 @@
+from decimal import Decimal
 import uuid
 
 from django.db import models
@@ -43,15 +44,20 @@ class Order(models.Model):
     def update_total(self):
         """
         Update grand total for each line item as added,
-        and accounting for delivery costs.
+        and account for delivery costs based on bottles ordered.
         """
         self.order_total = self.lineitems.aggregate(
             Sum('lineitem_total'))['lineitem_total__sum'] or 0
-        # if self.order_total < settings.FREE_DELIVERY_THRESHOLD: #edit for case/value
-        #     sdp = settings.STANDARD_DELIVERY_PERCENTAGE
-        #     self.delivery_cost = self.order_total * sdp / 100
-        # else:
-        self.delivery_cost = 33
+
+        bottle_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum']
+        print(f'{bottle_count}, req_bottles: {settings.FREE_DELIVERY_THRESHOLD}, std: {settings.STANDARD_DELIVERY_CHARGE}')
+        if bottle_count < settings.FREE_DELIVERY_THRESHOLD:
+            if bottle_count <= 5:
+                self.delivery_cost = Decimal(2 * settings.STANDARD_DELIVERY_CHARGE)
+            if bottle_count <= 2:
+                self.delivery_cost = settings.STANDARD_DELIVERY_CHARGE
+        else:
+            self.delivery_cost = 0
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
@@ -77,8 +83,7 @@ class OrderLineItem(models.Model):
                               related_name='lineitems')
     product = models.ForeignKey(Wine, null=False, blank=False,
                                 on_delete=models.CASCADE)
-    # product_size = models.CharField(max_length=2, null=True,
-    #                                 blank=True)  # XS, S, M, L, XL
+
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2,
                                          null=False, blank=False,
@@ -90,8 +95,7 @@ class OrderLineItem(models.Model):
         Override save method to set the lineitem total
         and update order total.
         """
-        self.lineitem_total = int(kwargs.pop("price", self.product.list_price)) * self.quantity #_price
-        # print(self.lineitem_total)
+        self.lineitem_total = int(kwargs.pop("price", self.product.list_price)) * self.quantity
         super().save(*args, **kwargs)
 
 
