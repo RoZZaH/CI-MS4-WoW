@@ -18,10 +18,6 @@ environ.Env.read_env(env_file)
 
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 else:
@@ -34,7 +30,6 @@ ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "worldofwine.herokuapp.com
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -141,10 +136,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'wow',
-            # 'USER': os.environ.get('DB_USR'),
-            'USER': env('DB_USR'),
-            # 'PASSWORD': os.environ.get('DB_PWD'),
-            'PASSWORD': env('DB_PWD'),
+            'USER': env('DB_USR'), # os.environ.get('DB_USR'),
+            'PASSWORD': env('DB_PWD'), # os.environ.get('DB_PWD'),
             'HOST': 'localhost',
             'PORT': 5432
         }
@@ -160,18 +153,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
 # AWS s3
 if "USE_AWS" in os.environ:
+    #Cache
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
+
+    #Bucket
     AWS_STORAGE_BUCKET_NAME = "worldofwine"
     AWS_S3_REGION_NAME = "eu-west-1"
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
@@ -199,7 +195,15 @@ else:
 FREE_DELIVERY_THRESHOLD = 6
 STANDARD_DELIVERY_CHARGE = 5
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY') #os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
 WOW_CONTACT_EMAIL = "hello@worldofwine.com"
+
+if "DATABASE_URL" in os.environ:
+
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+    STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+else:
+
+    STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY') #os.getenv('STRIPE_PUBLIC_KEY', '')
+    STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+    STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
