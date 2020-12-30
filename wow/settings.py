@@ -2,10 +2,7 @@ import os
 import environ
 import dj_database_url
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, True)
-)
+env = environ.Env()
 
 
 from pathlib import Path
@@ -20,11 +17,10 @@ environ.Env.read_env(env_file)
 
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    DEBUG = "DEVELOPMENT" in os.environ
 else:
     SECRET_KEY = env("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+    DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "worldofwine.herokuapp.com"]
 
