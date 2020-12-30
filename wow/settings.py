@@ -155,7 +155,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# AWS s3
+# AWS_s3
 if "USE_AWS" in os.environ:
     #Cache
     AWS_S3_OBJECT_PARAMETERS = {
