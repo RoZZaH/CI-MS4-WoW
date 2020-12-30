@@ -1,5 +1,6 @@
 import os
 import environ
+import dj_database_url
 
 env = environ.Env(
     # set casting, default value
@@ -26,7 +27,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "worldofwine.herokuapp.com"]
 
 
 # Application definition
@@ -38,23 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites', #added, allows proper callbacks for connecting via socialaccount - try it in own project
+    'django.contrib.sites',
     'django_extensions', #django shell_plus
     'django.forms', #changed FORM_RENDERER
-    'allauth', #added
-    'allauth.account', #added
-    'allauth.socialaccount', #added
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'django_countries',
     'crispy_forms',
     # Local Apps
-    # "wow.management.commands",
+    # "wow.management.commands", #custom encoder/exporter - win_unicode_console error on windows 10 sys
     "wines",
     "basket",
     "checkout",
     "customers",
-    #'public',
-    # Other
-    #'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -130,33 +128,24 @@ LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'wow.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wow',
-        # 'USER': os.environ.get('DB_USR'),
-        'USER': env('DB_USR'),
-        # 'PASSWORD': os.environ.get('DB_PWD'),
-        'PASSWORD': env('DB_PWD'),
-        'HOST': 'localhost',
-        'PORT': 5432
+if "DATABASE_URL" in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse('postgres://zgatftjzgmwwzr:59703e1955508d481f37f86964780937640120ea310ccfe9eabc12e6e5ea9c69@ec2-46-137-123-136.eu-west-1.compute.amazonaws.com:5432/d5mjoi57dgh2ki')
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'wow',
+            # 'USER': os.environ.get('DB_USR'),
+            'USER': env('DB_USR'),
+            # 'PASSWORD': os.environ.get('DB_PWD'),
+            'PASSWORD': env('DB_PWD'),
+            'HOST': 'localhost',
+            'PORT': 5432
+        }
+    }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
@@ -165,9 +154,6 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -178,8 +164,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
