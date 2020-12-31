@@ -198,13 +198,13 @@ The site has been well tested for responsiveness although I have found that when
 In order to run/review this project locally you will need to you have the following software in place:
 
 Prerequisites:
-
 - Python 3
 - PIP
 - GIT
 - Local Postgres Database (incl for Windows)
 - Stripe (Testing) Credentials
 - StripeCLI
+
 
 1. Ensure you have [Python 3](https://www.python.org/downloads/), [PIP](https://pip.pypa.io/en/stable/) Package Manager, and [Git](https://git-scm.com/) installed, using command-line/terminal on your computer.
 
@@ -277,12 +277,12 @@ EMAIL_HOST_PASS=[password for above email address - must be kept out of source c
 ### Remote Deployment
 
 Prerequisites:
-- Python 3
-- PIP
-- GIT
-- Heroku account and HerokuCLI
-- Stripe (Testing) Credentials
-- (optional : AWS / S3 Bucket - not required for functionality)
+  - Python 3
+  - PIP
+  - GIT
+  - Heroku account and HerokuCLI
+  - Stripe (Testing) Credentials
+  - (optional : AWS / S3 Bucket - not required for functionality)
 
 1. (Sign up) Login into your Heroku account 
 2. Create a new app, called <appname>, selecting the location nearest to you - i.e. Europe. 
