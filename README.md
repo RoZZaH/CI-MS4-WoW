@@ -320,6 +320,8 @@ Prerequisites:
 19. Commit all and push to the new remote
   - `git push heroku <master||deploy-branch>`
 19a. In Heroku, you can connect to a Github Repo (you'll be asked to authenicate access) and even a branch; you can set Enable/Disable 'Automatically Deploy'; there is also options to work with <abbr title="Continuous Improvement">CI</abbr> tools like Travis.
+20. Static and Media Folders and URLs are set up using AWS s3 Buckets which is more involved and beyond the scope of this readme.
+20a. See the **settings.py** file for an idea as to how this works
 
 
 
