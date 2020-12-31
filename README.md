@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 World of Wine is a speculative e-commerce website for an online wine merchant; using Django, Postgres and Stripe. 
-![](/docs/wow-home.png)
+![](/docs/wow-homepage.png)
 
 View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; please be patient while the free dyno spins up.
 
