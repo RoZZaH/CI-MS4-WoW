@@ -323,9 +323,10 @@ Prerequisites:
 17. Commit all and push to the new remote
   - `git push heroku <master||deploy-branch>`
     1. In Heroku, you can connect to a Github Repo (you'll be asked to authenicate access) and even a branch; you can set Enable/Disable 'Automatically Deploy'; there is also options to work with <abbr title="Continuous Improvement">CI</abbr> tools like Travis.
-18. Static and Media Folders and URLs are set up using AWS s3 Buckets which is more involved and beyond the scope of this readme; see the **settings.py** file for an idea as to how this works.
+18. Static and Media Folders and URLs are set up using AWS s3 Buckets which is more involved and beyond the scope of this readme; see the **settings.py** file for an idea as to how this works; this [article](https://simpleisbetterthancomplex.com/tutorial/2017/08/01/how-to-setup-amazon-s3-in-a-django-project.html) may also help.
 19. In Order to get **Stripe** to work you will need to set the following variables:
     - ![](/docs/heroku-envvars.png)
+    - this is very similar to environmental variables used in the local deploy above
 
 
 
