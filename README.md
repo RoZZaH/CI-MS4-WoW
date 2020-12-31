@@ -24,7 +24,7 @@ View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; ple
 4. [Technologies](#technologies)
     - [Web Technologies and Frameworks Used](#web-technologies-and-frameworks-used)
     - [Coding Choices](#coding-choices)
-5. [Testing](#testing)
+5. [Testing and Bugs](#testing-and-bugs)
 6. [Deployment](#deployment)
     - [Local Deployment](#local-deployment)
     - [Remote Deployment](#remote-deployment)
@@ -168,10 +168,9 @@ During development, I also decided to centralise the app templates, 'includes' a
 
 [Back to TOC](#table-of-contents)
 ---
+## TESTING AND BUGS
 
-
-
-### Testing and Bugs
+### The joys and sorrows of Local Dev on Windows
 
 
 
