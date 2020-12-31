@@ -345,7 +345,7 @@ Prerequisites:
 
 ### Code
 
-- The wine/products and checkout apps of the course was adapted from the [Boutique Ado Mini Project](https://github.com/ckz8780/boutique_ado_v1/) from the [Code Institute](https://codeinstitute.net/) Full Stack Developer course; <br>which I tried rewrite as Class-based Views as much as possible.
+- The wine/products and checkout apps of the course was adapted from the [Boutique Ado Mini Project](https://github.com/ckz8780/boutique_ado_v1/) from the [Code Institute](https://codeinstitute.net/) Full Stack Developer course; which I tried make my own by using Classes/Class-based Views as appropriate.
 - I bought a copy of Daniel and Audrey Feldroy's [*A Wedge of Django (a crash course)*](https://www.feldroy.com/) and also referred an older version of [Two Scoops of Django](https://www.feldroy.com/) when the [Django Docs](https://docs.djangoproject.com/en/3.1/) got the better of me
 - [Very Academy](https://twitter.com/VeryAcademy) has a fantastic playlist on Youtube covering [**Class-based Views**](https://www.youtube.com/playlist?list=PLOLrQ9Pn6caxNb9eFZJ6LfY29nZkKmmXT) in Django 
 
