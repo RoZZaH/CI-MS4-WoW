@@ -2,16 +2,17 @@ import os
 import environ
 import dj_database_url
 
-env = environ.Env()
+# env = environ.Env()
 
 
-from pathlib import Path
+# from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-env_file = os.path.join(BASE_DIR, ".env")
-environ.Env.read_env(env_file)
+# env_file = os.path.join(BASE_DIR, ".env")
+# environ.Env.read_env(env_file)
 
 
 
@@ -100,7 +101,7 @@ TEMPLATES = [
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
-# MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', # allows superusers login
@@ -125,7 +126,7 @@ WSGI_APPLICATION = 'wow.wsgi.application'
 
 if "DATABASE_URL" in os.environ:
     DATABASES = {
-        'default': dj_database_url.parse('postgres://zgatftjzgmwwzr:59703e1955508d481f37f86964780937640120ea310ccfe9eabc12e6e5ea9c69@ec2-46-137-123-136.eu-west-1.compute.amazonaws.com:5432/d5mjoi57dgh2ki')
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
     DATABASES = {
@@ -155,6 +156,14 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 # AWS_s3
 if "USE_AWS" in os.environ:
     #Cache
@@ -180,12 +189,6 @@ if "USE_AWS" in os.environ:
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
 
-else:
-    STATIC_URL = "/static/"
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Checkout + Stripe
 FREE_DELIVERY_THRESHOLD = 6
