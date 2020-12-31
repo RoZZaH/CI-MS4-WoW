@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    DEBUG = "DEVELOPMENT" in os.environ
+    DEBUG = "DEVELOPMENT" in os.environ #forgot to add env_var DEVELOPMENT to heroku
 else:
     SECRET_KEY = env("SECRET_KEY")
     DEBUG = env("DEBUG")
