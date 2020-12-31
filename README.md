@@ -170,7 +170,20 @@ During development, I also decided to centralise the app templates, 'includes' a
 ---
 ## TESTING AND BUGS
 
-### The joys and sorrows of Local Dev on Windows
+### Manual Tests
+Given that this final project has e-commerce functionality at it's heart once I was satisified that orders where being correctly recorded into the overall Order and Order Lineitems I worked with the [StripeCLI to test webhook](https://stripe.com/docs/stripe-cli/webhooks) functionality; this means that an order is created as a fallback where a payment-intent succeeds but no order yet exists in  the database. If using localhost you have to authenicate via the StripeCLI `stripe login` and it opens a browser to login similar to Github in VSCode or HerokuCLI.
+`stripe listen --forward-to localhost:8080/checkout/wh/`
+
+Event Logs from Stripe show webhooks (and payment intents) succeeding locally but payment_intent.succeeded not on the deployed Heroku App; interestingly any other webhooks are handled generically and payment_intent.payment_failed also works sending from the Stripe dashboard. This may be the reason no confirmation emails are being sent from the deployed app while AllAuth signup does work (sending from hello.worldofwine@gmail.com).
+
+### Automated Tests
+I fully intended to write some automated tests as outlined in the Django Crash Course but I knew using data factories like [Factory Boy](https://factoryboy.readthedocs.io/) had the potential to pollute my database so I decided to back it up before writing and testing functions **assert url** based on a saved concantenated slug but I unfortunately ended down a cul-de-sace in that my windows console was choking writing out unicode characters to json. I tried everything changing the font, writing a custom dumpdata command (see wow.management.commands) before having to install win_unicode_console and setting a PYTHONIOENCODING=utf-8
+Ideally I would have devised a test for each required field and also calculations for free delivery and checkout and this maybe where the 'magic' of Class-based Views obscured the fundamentals of Testing Driven Design.
+
+
+### Visual Tests
+The site has been well tested for responsiveness although I have found that when developing locally Developer Tools (in Chrome and Firefox) seem to open / initate a click event on the mobile navigation and suddenly the layout breaks - even the mobile navigation. However with Devloper Tools closed or behaving the layout wraps as intended.
+
 
 
 
