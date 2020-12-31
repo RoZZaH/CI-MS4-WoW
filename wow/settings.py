@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    DEBUG = "DEVELOPMENT" in os.environ #forgot to add env_var DEVELOPMENT to heroku
+    DEBUG = "DEVELOPMENT" in os.environ
 else:
     SECRET_KEY = env("SECRET_KEY")
     DEBUG = env("DEBUG")
@@ -110,7 +110,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' #allow AllAuth authenictaion using usernames or email
 ACCOUNT_EMAIL_REQUIRED = True #required
@@ -194,7 +194,18 @@ if "USE_AWS" in os.environ:
 FREE_DELIVERY_THRESHOLD = 6
 STANDARD_DELIVERY_CHARGE = 5
 STRIPE_CURRENCY = 'eur'
-WOW_CONTACT_EMAIL = "hello@worldofwine.com"
+
+if "DEVELOPMENT" in os.environ:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    WOW_CONTACT_EMAIL = "hello@worldofwine.com"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USR')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PW')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USR')
 
 if "DATABASE_URL" in os.environ:
 
