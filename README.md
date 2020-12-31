@@ -195,10 +195,6 @@ The site has been well tested for responsiveness although I have found that when
 
 ### Local Deployment
 
-
-
-## Local Deployment 
-
 In order to run/review this project locally you will need to you have the following software in place:
 
 Prerequisites:
@@ -208,6 +204,7 @@ Prerequisites:
 - GIT
 - Local Postgres Database (incl for Windows)
 - Stripe (Testing) Credentials
+- StripeCLI
 
 1. Ensure you have [Python 3](https://www.python.org/downloads/), [PIP](https://pip.pypa.io/en/stable/) Package Manager, and [Git](https://git-scm.com/) installed, using command-line/terminal on your computer.
 
@@ -227,7 +224,8 @@ Prerequisites:
  - or<br>
 	```
 	create venv
-	conda create -n wow python=3.8	
+	conda create -n wow python=3.8
+	
 	activate venv
 	conda activate wow
 	```
@@ -261,8 +259,8 @@ EMAIL_HOST_PASS=[password for above email address - must be kept out of source c
 ```
 
 1. You will also need to set an environmental variable for DEVELOPMENT=True
-- `set DEVELOPMENT=True' on Windows
-- `export $env:DEVELOPMENT='True' in Powershell (Windows)
+- `set DEVELOPMENT=True'` on Windows
+- `export $env:DEVELOPMENT='True'` in Powershell (Windows)
 - `export DEVELOPMENT=True` on Mac/Unix
 
 1. Migrate the initial Django models using :
@@ -276,40 +274,52 @@ EMAIL_HOST_PASS=[password for above email address - must be kept out of source c
 
 
 
-## Deployment
-create venv
-conda create -n wow python=3.8
+### Remote Deployment
 
-activate venv
-conda activate wow
+Prerequisites:
+- Python 3
+- PIP
+- GIT
+- Heroku account and HerokuCLI
+- Stripe (Testing) Credentials
+- (optional : AWS / S3 Bucket - not required for functionality)
+
+1. (Sign up) Login into your Heroku account 
+2. Create a new app, called <appname>, selecting the location nearest to you - i.e. Europe. 
+3. Under the ‘Resources’ tab, search for and add the ‘Heroku Postgress DB’ app
+4. In the project terminal, install `dj_database_url`, `psycopg2` by using the following commands: 
+  a. `pip install dj_database_url`
+  b. `pip install psycopg2-binary`
+  c. also install `pip install gunicorn` it will be needed for deployment later on
+5. Next, freeze these requirements into a requirements file Heroku will use to install the necessary packages for deployment
+- `pip3 freeze > requirements.txt`
+6. To populate the remote heroku (postgres) database you can:
+  a.  Comment out the current `DATABASE` settings (we will need them again later), and add:
+	- ‘Default’: dj_database_url.parse( insert database URL here)
+  b. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
+  c. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
+  d. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
+9. Now run all the migrations to get our database set up: 
+  a. `python3 manage.py migrate`
+  b. `python manage.py loaddata db.json`
+  c. You should **not** need to create a superuser; but that command is `python manage.py createsuperuser` if you do.
+10. Run the django server (locally) `python manage.py runserver <localhost:port>` and you should notice a slight lag as you connect to the remote database.
+11. Before commiting anything to GIT **remove the new dj_database_url settings** and uncomment out the original settings so they are re-eanbled. This stops the database URL going into version control. Alternatively you could have added the remote db as an environmental variable (to for example django-environ) to be safer.
+12. Edit the django **settings.py** file with an if statement, looking for DATABASE_URL, the Heroku variable otherwise connect to the local Postgres server. 
+13. Create a Procfile to tell Heroku to create a web dynamo, which will run unicorn and serve or Django app
+14. Add the following to your Procfile 
+  - `web: gunicorn wow.wsgi:application`
+15. Log into HerokuCLI via the terminal with the following command: 
+  - `heroku login -i`
+16. Temporarily disable collect static using the following command: 
+  - `heroku config:set DISABLE_COLLECTSTATIC=1 --app <appname>`
+17. In settings.py, updated the `ALLOWED_HOSTS` settings. `Localhost` allows Local Development or Gitpod to still work too 
+  - ALLOWED_HOSTS = ['<appname>.herokuapp.com', 'localhost']
+18. add git remote for heroku and push there
+  - `git remote add heroku https://git.heroku.com/<project-name>/git`
+19. Commit all and push to the new remote
+  - `git push heroku <master||deploy-branch>`
+19a. In Heroku, you can connect to a Github Repo (you'll be asked to authenicate access) and even a branch; you can set Enable/Disable 'Automatically Deploy'; there is also options to work with <abbr title="Continuous Improvement">CI</abbr> tools like Travis.
 
 
-
-
-
-changed to Postgres on Windows in case features/fieldtypes unavailable in sqlite3 (e.g. listfield)
-set envvars
-
-```
-set DB_USR=******
-set DB_PWD=******
-```
-
-[a guide for creating django webapp on Postgres for Windows](https://medium.com/@9cv9official/creating-a-django-web-application-with-a-postgresql-database-on-windows-c1eea38fe294)
-
-
-run initial migrations
-python manage.py migrate
-create a superuser 
-pythong manage.py createsuperuser
-
-## Requirements (Package Management)
-- django
-- psycopg2 (for postgres on windows/localhost and heroku/production)
-- allauth (pip install django-allauth)
-- django extensions (shell plus) (pip install django-extensions)
-
-pip freeze > requirements.txt
-
-python manage.py runserver (localhost:)8080
 
