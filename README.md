@@ -177,6 +177,7 @@ During development, I also decided to centralise the app templates, 'includes' a
 Given that this final project has e-commerce functionality at it's heart once I was satisified that orders where being correctly recorded into the overall Order and Order Lineitems I worked with the [StripeCLI to test webhook](https://stripe.com/docs/stripe-cli/webhooks) functionality; this means that an order is created as a fallback where a payment-intent succeeds but no order yet exists in  the database. If using localhost you have to authenicate via the StripeCLI `stripe login` and it opens a browser to login similar to Github in VSCode or HerokuCLI.
 `stripe listen --forward-to localhost:8080/checkout/wh/`
 
+![](/docs/stripe-webhooks.png)
 Event Logs from Stripe show webhooks (and payment intents) succeeding locally but payment_intent.succeeded not on the deployed Heroku App; interestingly any other webhooks are handled generically and payment_intent.payment_failed also works sending from the Stripe dashboard. This may be the reason no confirmation emails are being sent from the deployed app while AllAuth signup does work (sending from hello.worldofwine@gmail.com).
 
 ### Automated Tests
