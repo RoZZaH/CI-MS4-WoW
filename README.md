@@ -288,21 +288,27 @@ Prerequisites:
 2. Create a new app, called <appname>, selecting the location nearest to you - i.e. Europe. 
 3. Under the ‘Resources’ tab, search for and add the ‘Heroku Postgress DB’ app
 4. In the project terminal, install `dj_database_url`, `psycopg2` by using the following commands: 
-  a. `pip install dj_database_url`
-  b. `pip install psycopg2-binary`
-  c. also install `pip install gunicorn` it will be needed for deployment later on
+	
+  i. `pip install dj_database_url`
+  ii. `pip install psycopg2-binary`
+  iii. also install `pip install gunicorn` it will be needed for deployment later on
+  
 5. Next, freeze these requirements into a requirements file Heroku will use to install the necessary packages for deployment
 - `pip3 freeze > requirements.txt`
 6. To populate the remote heroku (postgres) database you can:
-  a.  Comment out the current `DATABASE` settings (we will need them again later), and add:
+
+  i.  Comment out the current `DATABASE` settings (we will need them again later), and add:
 	- ‘Default’: dj_database_url.parse( insert database URL here)
-  b. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
-  c. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
-  d. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
+  ii. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
+  iii. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
+  iv. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
+	
 9. Now run all the migrations to get our database set up: 
-  a. `python3 manage.py migrate`
-  b. `python manage.py loaddata db.json`
-  c. You should **not** need to create a superuser; but that command is `python manage.py createsuperuser` if you do.
+
+  i. `python3 manage.py migrate`
+  ii. `python manage.py loaddata db.json`
+  iii. You should **not** need to create a superuser; but that command is `python manage.py createsuperuser` if you do.
+  
 10. Run the django server (locally) `python manage.py runserver <localhost:port>` and you should notice a slight lag as you connect to the remote database.
 11. Before commiting anything to GIT **remove the new dj_database_url settings** and uncomment out the original settings so they are re-eanbled. This stops the database URL going into version control. Alternatively you could have added the remote db as an environmental variable (to for example django-environ) to be safer.
 12. Edit the django **settings.py** file with an if statement, looking for DATABASE_URL, the Heroku variable otherwise connect to the local Postgres server. 
