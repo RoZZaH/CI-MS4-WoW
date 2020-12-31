@@ -1,12 +1,16 @@
 <h1 id=top align=center>World of Wine - MileStone Project 4 - Code Institute</h1>
 
 ## OVERVIEW
-World of Wine is a speculative e-commerce website for an online wine merchant; using Django, Postgres and Stripe. 
----
-![](/docs/wow-homepage.png)
----
-View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; please be patient while the free dyno spins up.
 
+World of Wine is a speculative e-commerce website for an online wine merchant<br>
+using Django, Postgres and Stripe. 
+
+
+![](/docs/wow-homepage.png)
+
+
+View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; please be patient while the free dyno spins up.
+---
 ## [Table of Contents](#table-of-contents)
 
 
