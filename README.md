@@ -216,8 +216,11 @@ Prerequisites:
 1. Create a Virtual Environment using **venv**, [**pipenv**](https://realpython.com/pipenv-guide/), **virtualenv** or [**anaconda**](https://docs.conda.io/en/latest/miniconda.html#windows-installers)
 
 1. Depending on your computer os change the commands as appropriate (Mac tends to also have Python 2 installed so you need to use pip3 or python3 in your commands)<br>
-  - ```python3 -m venv wow
-       source wow/bin/activate #to activate```
+  - 
+	```
+	python3 -m venv wow
+       	source wow/bin/activate #to activate
+	```
 	
  - or use `pipenv shell` if using pipenv
 
