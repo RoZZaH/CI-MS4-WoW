@@ -23,12 +23,12 @@ class StripeWebHook_Handler:
                     {"order": order})
         body = render_to_string(
                     "./emails/confirmation_email_body.txt",
-                    {"order": order, "contact_email": settings.WOW_CONTACT_EMAIL })
+                    {"order": order, "contact_email": settings.DEFAULT_FROM_EMAIL })
         if 'basket' in self.request.session:
             del self.request.session['basket']
         send_mail(
             subject, body,
-            settings.WOW_CONTACT_EMAIL,
+            settings.DEFAULT_FROM_EMAIL,
             [cust_email])
             
 
