@@ -296,9 +296,9 @@ Prerequisites:
 - `pip3 freeze > requirements.txt`
 6. To populate the remote heroku (postgres) database you can:
     1.  Comment out the current `DATABASE` settings (we will need them again later), and add:
-	- ‘Default’: dj_database_url.parse( insert database URL here)
+	- ‘Default’: dj_database_url.parse(<new Database_URL here>)
     2. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
-    3. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
+    3. On Heroku site Go to your <app> under Settings > Reveal Config Vars > DATABASE_URL
     4. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
 	
 7. Now run all the migrations to get our database set up: 
