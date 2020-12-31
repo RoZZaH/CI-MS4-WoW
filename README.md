@@ -189,7 +189,86 @@ The site has been well tested for responsiveness although I have found that when
 
 
 
+[Back to TOC](#table-of-contents)
+---
+## DEPLOYMENT
 
+### Local Deployment
+
+
+
+## Local Deployment 
+
+In order to run/review this project locally you will need to you have the following software in place:
+
+Prerequisites:
+
+- Python 3
+- PIP
+- GIT
+- Local Postgres Database (incl for Windows)
+- Stripe (Testing) Credentials
+
+1. Ensure you have [Python 3](https://www.python.org/downloads/), [PIP](https://pip.pypa.io/en/stable/) Package Manager, and [Git](https://git-scm.com/) installed, using command-line/terminal on your computer.
+
+1. This project uses a Postgres database for local development; for Windows installation [please see this article](https://medium.com/@9cv9official/creating-a-django-web-application-with-a-postgresql-database-on-windows-c1eea38fe294) . It's best to use an admin login of **postgres** and a password that you can remember / write down for database admin and creating the django superuser.
+
+1. Create a Virtual Environment using **venv**, [**pipenv**](https://realpython.com/pipenv-guide/), **virtualenv** or [**anaconda**](https://docs.conda.io/en/latest/miniconda.html#windows-installers)
+
+1. Depending on your computer os change the commands as appropriate (Mac tends to also have Python 2 installed so you need to use pip3 or python3 in your commands)<br>
+  - ```python3 -m venv wow
+       source wow/bin/activate #to activate```
+	
+ - or use `pipenv shell` if using pipenv
+
+ - or<br>
+	```create venv
+	conda create -n wow python=3.8	
+	activate venv
+	conda activate wow
+	```
+
+1. usually the pip version is outdated install old version of pip
+    `pip install --upgrade pip`
+
+1. Clone the Git Repo<br>
+    if using [VSCode](https://code.visualstudio.com/) Ctrl+Shift+P (Win) or Cmd+Shift+P (Mac) type 'Clone' (Git:Clone)<br>
+    * Paste in this Git URI -> https://github.com/RoZZaH/CI-MS4-WoW
+
+1.  use the requirements.txt to install dependicies <br>
+N.B. if deploying to heroku uncomment the line for gunicorn<br>
+`pip install -r requirements.txt` or alternatively `pipenv install requirements.txt`
+
+1. [Stripe](https://stripe.com/en-ie) credentials - specifically a Stripe Public Key and a Stripe Secret Key - are needed in order to test the checkout functionality, - to be put in a .env file or local environemnt varaiables (see below).
+N.B. you will not need AWS S3 Buckets setup for local development/review
+
+1. The requirements file should have install [django-environ](https://django-environ.readthedocs.io/en/latest/)<br>
+Create an .env file with the following credientals / string values (no need for quotation marks after the equals (=) sign)
+
+```
+DB_USR=postgres
+DB_PWD=[password used to set up postgres or specific app database]
+SECRET_KEY=[Django secret key, paste from settings.py or generate your own]
+STRIPE_PUBLIC_KEY=[Testing Public API key]
+STRIPE_SECRET_KEY=[Testing Secret key - this key type should definitely be kept out of source control]
+STRIPE_WH_KEY=[Testing Webhook Api Secret Key - again never in source control]
+EMAIL_HOST_USER=[an email address configured for SMTP / low security sending]
+EMAIL_HOST_PASS=[password for above email address - must be kept out of source control]
+```
+
+1. You will also need to set an environmental variable for DEVELOPMENT=True
+- `set DEVELOPMENT=True' on Windows
+- `export $env:DEVELOPMENT='True' in Powershell (Windows)
+- `export DEVELOPMENT=True` on Mac/Unix
+
+1. Migrate the initial Django models using :
+- `python manage.py migrate`
+ 
+1. You will should *NOT* need to create a superuser as the *fixture*/backup should load in some users:
+- `python manage.py loaddata db.json`
+
+1. This should be everything & your site should be running correctly now. You can run the project using
+- `python manage.py runserver <localhost><port e.g. 8080>`
 
 
 
