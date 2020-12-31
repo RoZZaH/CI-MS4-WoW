@@ -161,6 +161,8 @@ I followed this short Medium article by [9cv9](https://9cv9.com/) for [creating 
 ](https://www.feldroy.com/); I had implemented function based views in my Milestone 3 Flask project and the terse code and logical defaults appealed. Django is, however, a large framework so I didn't deviate too much from standard <abbr title="Create Read Update Delete">CRUD</abbr> functionality and some signals.
 - Payments are handled via the [**Stripe**](https://stripe.com) payments system and API mostly using [JQuery](https://jquery.com/) as a convenience; there are some traces of vanilla <abbr title="Ecmascript 6">ES6</abbr> but I'd love to see if the javascript could be handled by something like Alpine.js. 
 
+### Coding Choices
+Apart from using Class-based Views, I decided to centralise the app templates, 'includes' and form widgets. I found it much easier to work like this even if it meant some extra setup in the settings file. In future I would like to first recode this project in Tailwind on the way to turning chunks into components; and utlimately code something like a Vue App that talks to a Flask or Django REST API.
 
 [Back to TOC](#table-of-contents)
 ---
