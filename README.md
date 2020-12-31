@@ -77,7 +77,7 @@ In keeping with the concept and market for an online wine merchant, World of Win
 
 So, the three main colours seen are: 
 - White
-- Dark Burdundy (hex &num;46001a)
+- Dark Burdundy <span style="background:#46001A">&block;</span> (hex &num;46001a)
 - Lighter Wine (hex &num;6e032a)
 
 along with Jet-Black (hex &num;000000) for some text-elements.
