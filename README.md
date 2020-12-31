@@ -273,7 +273,8 @@ EMAIL_HOST_PASS=[password for above email address - must be kept out of source c
 1. This should be everything & your site should be running correctly now. You can run the project using
 - `python manage.py runserver <localhost><port e.g. 8080>`
 
-
+[Back to TOC](#table-of-contents)
+---
 
 ### Remote Deployment
 
@@ -329,5 +330,31 @@ Prerequisites:
     - ![](/docs/heroku-envvars.png)
     - this is very similar to environmental variables used in the local deploy above
 
+[Back to TOC](#table-of-contents)
+---
 
+## Credits
+---
+### Media
+- [Landing Page Background](https://unsplash.com/photos/x5O1GmmGoPE) from [Unsplash](https://unsplash.com/) by [Chuttersnap](instagram.com/chuttersnap)
 
+- The majority of the product images were from [Vinino](https://www.vivino.com/) which provides services like wine product data and images via API
+
+### Content
+- The product details were gleaned from [Robb Report](https://robbreport.com) best wines reports and cross referenced with images from [Vivino](https://vivino.com) and details from [Wine Searcher](https://www.wine-searcher.com/); I aggregated info in excel and then exported to csv and used column select to add json tags for import as a fixture into Django
+
+### Code
+
+- The wine/products and checkout apps of the course was adapted from the [Boutique Ado Mini Project](https://github.com/ckz8780/boutique_ado_v1/) from the [Code Institute](https://codeinstitute.net/) Full Stack Developer course; <br>which I tried rewrite as Class-based Views as much as possible.
+- I bought a copy of Daniel and Audrey Feldroy's [*A Wedge of Django (a crash course)*](https://www.feldroy.com/) and also referred an older version of [Two Scoops of Django](https://www.feldroy.com/) when the [Django Docs](https://docs.djangoproject.com/en/3.1/) got the better of me
+- [Very Academy](https://twitter.com/VeryAcademy) has a fantastic playlist on Youtube covering [**Class-based Views**](https://www.youtube.com/playlist?list=PLOLrQ9Pn6caxNb9eFZJ6LfY29nZkKmmXT) in Django 
+
+---
+
+## Acknowledgements
+
+I would like to thank the [Code Institute](https://codeinstitute.net/), and particularly Mark McCann, for assisting me in completing the course;<br>
+my mentor, Aaron Sinnott, a fellow Wexford man was also great guide during a difficult year [2020].
+
+[Back to TOC](#table-of-contents)
+---
