@@ -334,7 +334,7 @@ Prerequisites:
 ---
 
 ## Credits
----
+
 ### Media
 - [Landing Page Background](https://unsplash.com/photos/x5O1GmmGoPE) from [Unsplash](https://unsplash.com/) by [Chuttersnap](instagram.com/chuttersnap)
 
