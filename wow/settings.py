@@ -2,19 +2,22 @@ import os
 import environ
 import dj_database_url
 
-# env = environ.Env()
+#     # set casting, default value
+#     DEBUG=(bool, True)
+# )
 
 
-# from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# from pathlib import Path
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEVELOPMENT = True if os.environ.get('DEVELOPMENT') else False
 
-# env_file = os.path.join(BASE_DIR, ".env")
-# environ.Env.read_env(env_file)
-
-
+if DEVELOPMENT:
+    env = environ.Env()
+    env_file = os.path.join(BASE_DIR, ".env")
+    environ.Env.read_env(env_file)
 
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -43,7 +46,7 @@ INSTALLED_APPS = [
     'django_countries',
     'crispy_forms',
     'storages',
-    # Local Apps
+    # Local Apps - home is TemplateView
     # "wow.management.commands", #custom encoder/exporter - win_unicode_console error on windows 10 sys
     "wines",
     "basket",
@@ -71,14 +74,9 @@ TEMPLATES = [
         'DIRS': [ 
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates', 'allauth'),
-            # os.path.join(BASE_DIR, 'venv/lib/site-packages/django/contrib/admin/templates' )
         ],
         'APP_DIRS': True,
         'OPTIONS': {
-            # 'loaders' : [
-            #     ('django.template.loaders.filesystem.Loader',
-            #     [BASE_DIR / 'templates'],)
-            # ],
             "builtins" : [
                 "crispy_forms.templatetags.crispy_forms_tags",
                 "crispy_forms.templatetags.crispy_forms_field",
@@ -89,7 +87,7 @@ TEMPLATES = [
             },
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', #req by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
@@ -109,7 +107,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' #allow AllAuth authenictaion using usernames or email
@@ -133,8 +130,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'wow',
-            'USER': env('DB_USR'), # os.environ.get('DB_USR'),
-            'PASSWORD': env('DB_PWD'), # os.environ.get('DB_PWD'),
+            'USER': env('DB_USR') if DEVELOPMENT else os.environ.get('DB_USR'),
+            'PASSWORD': env('DB_PWD') if DEVELOPMENT else os.environ.get('DB_PWD'),
             'HOST': 'localhost',
             'PORT': 5432
         }
@@ -154,7 +151,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 
 STATIC_URL = "/static/"
@@ -207,13 +203,11 @@ else:
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PW')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USR')
 
-if "DATABASE_URL" in os.environ:
-
-    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
-    STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
-else:
-
+if "DEVELOPMENT" in os.environ:
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY') #os.getenv('STRIPE_PUBLIC_KEY', '')
     STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
+else:
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+    STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
