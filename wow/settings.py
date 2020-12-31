@@ -2,28 +2,26 @@ import os
 import environ
 import dj_database_url
 
-#     # set casting, default value
-#     DEBUG=(bool, True)
-# )
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# from pathlib import Path
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Comment if using Heroku
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+# Heroku: BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 DEVELOPMENT = True if os.environ.get('DEVELOPMENT') else False
 
-if DEVELOPMENT:
-    env = environ.Env()
-    env_file = os.path.join(BASE_DIR, ".env")
-    environ.Env.read_env(env_file)
+# comment out these 'env' lines if not using django-environ
+# heroku - will try to read .env out of source-control (.gitignore)
+env = environ.Env()
+env_file = os.path.join(BASE_DIR, ".env")
+environ.Env.read_env(env_file)
+#
 
 if "DATABASE_URL" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
     DEBUG = "DEVELOPMENT" in os.environ
 else:
-    SECRET_KEY = env("SECRET_KEY")
+    SECRET_KEY = env("SECRET_KEY") # or - os.getenv('SECRET_KEY')
     DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "worldofwine.herokuapp.com"]
