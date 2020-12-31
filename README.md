@@ -10,7 +10,9 @@ using Django, Postgres and Stripe.
 
 
 View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; please be patient while the free dyno spins up.
+
 ---
+
 ## [Table of Contents](#table-of-contents)
 
 
@@ -96,17 +98,16 @@ along with <span style="color:#000000; display:inline-block; height:10px; width:
 
 
 [Back to TOC](#table-of-contents)
+
 ---
 
 ## WIREFRAMES
 
 
 [Back to TOC](#table-of-contents)
+
 ---
-
-
 ## FEATURES
-
 ### Current Features 
 
 #### Site-wide Features
@@ -158,6 +159,7 @@ There many features one could implement to extend the value and stickiness of an
  - Wine Style - categorise wines based on 'style' or palette.
 
 [Back to TOC](#table-of-contents)
+
 ---
 ## TECHNOLOGIES
 ### Web Technologies and Frameworks Used
@@ -177,9 +179,9 @@ Where possible I tried to implement **Class-based Views** in Django, following t
 During development, I also decided to centralise the app templates, 'includes' and form widgets. I found it much easier to work like this even if it meant some extra setup in the settings file. Files are easily understood as belonging to a particular app by their prefix. In future I would like to recode this project in Tailwind on the way to turning chunks into components; and utlimately code a Vue App that talks to a Flask or Django REST API.
 
 [Back to TOC](#table-of-contents)
+
 ---
 ## TESTING AND BUGS
-
 ### Manual Tests
 Given that this final project has e-commerce functionality at it's heart once I was satisified that orders where being correctly recorded into the overall Order and Order Lineitems I worked with the [StripeCLI to test webhook](https://stripe.com/docs/stripe-cli/webhooks) functionality; this means that an order is created as a fallback where a payment-intent succeeds but no order yet exists in  the database. If using localhost you have to authenicate via the StripeCLI `stripe login` and it opens a browser to login similar to Github in VSCode or HerokuCLI.
 `stripe listen --forward-to localhost:8080/checkout/wh/`
@@ -195,12 +197,10 @@ Ideally I would have devised a test for each required field and also calculation
 ### Visual Tests
 The site has been well tested for responsiveness although I have found that when developing locally Developer Tools (in Chrome and Firefox) seem to open / initate a click event on the mobile navigation and suddenly the layout breaks - even the mobile navigation. However with Devloper Tools closed or behaving the layout wraps as intended.
 
-
-
 [Back to TOC](#table-of-contents)
+
 ---
 ## DEPLOYMENT
-
 ### Local Deployment
 
 In order to run/review this project locally you will need to you have the following software in place:
@@ -281,6 +281,7 @@ EMAIL_HOST_PASS=[password for above email address - must be kept out of source c
 - `python manage.py runserver <localhost><port e.g. 8080>`
 
 [Back to TOC](#table-of-contents)
+
 ---
 
 ### Remote Deployment
@@ -338,6 +339,7 @@ Prerequisites:
     - this is very similar to environmental variables used in the local deploy above
 
 [Back to TOC](#table-of-contents)
+
 ---
 
 ## Credits
@@ -364,4 +366,5 @@ I would like to thank the [Code Institute](https://codeinstitute.net/), and part
 my mentor, Aaron Sinnott, a fellow Wexford man was also great guide during a difficult year [2020].
 
 [Back to TOC](#table-of-contents)
+
 ---
