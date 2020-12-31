@@ -23,24 +23,23 @@ View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; ple
       - [Typography](#typography)
       - [Iconography](#iconography)
       - [Colour Scheme](#colour-scheme)
-2. [Wireframes](#wireframes)
-3. [Features](#features)
+2. [Features](#features)
     - [Current Features](#current-features)
       - [Site-wide Features](#site-wide-features)
       - [Features Of Individual Pages](#features-of-individual-pages-django-apps)
     - [Future Features](#future-features)
-4. [Technologies](#technologies)
+3. [Technologies](#technologies)
     - [Web Technologies and Frameworks Used](#web-technologies-and-frameworks-used)
     - [Coding Choices](#coding-choices)
-5. [Testing and Bugs](#testing-and-bugs)
+4. [Testing and Bugs](#testing-and-bugs)
     - [Manual Tests](#manual-tests)
     - [Automated Tests](#automated-tests)
     - [Visual Tests](#visual-tests)
-6. [Deployment](#deployment)
+5. [Deployment](#deployment)
     - [Local Deployment](#local-deployment)
     - [Remote Deployment](#remote-deployment)
-7. [Credits](#credits)
-8. [Acknowledgements](#acknowledgements)
+6. [Credits](#credits)
+7. [Acknowledgements](#acknowledgements)
 
 ---
 ## USER EXPERIENCE UX
@@ -100,12 +99,6 @@ along with <span style="color:#000000; display:inline-block; height:10px; width:
 
 [Back to TOC](#table-of-contents)
 
----
-
-## WIREFRAMES
-
-
-[Back to TOC](#table-of-contents)
 
 ---
 ## FEATURES
