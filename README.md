@@ -218,18 +218,18 @@ Prerequisites:
 1. Depending on your computer os change the commands as appropriate (Mac tends to also have Python 2 installed so you need to use pip3 or python3 in your commands)<br>
   - 
 	```
-python3 -m venv wow
-source wow/bin/activate #to activate
+	python3 -m venv wow
+	source wow/bin/activate #to activate
 	```
 	
  - or use `pipenv shell` if using pipenv
 
  - or<br>
 	```
-create venv
-conda create -n wow python=3.8	
-activate venv
-conda activate wow
+	create venv
+	conda create -n wow python=3.8	
+	activate venv
+	conda activate wow
 	```
 
 1. usually the pip version is outdated install old version of pip
