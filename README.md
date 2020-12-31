@@ -22,6 +22,8 @@ View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; ple
       - [Features Of Individual Pages](#features-of-individual-pages)
     - [Features Left To Implement](#features-left-to-implement)
 4. [Technologies](#technologies)
+    - [Web Technologies and Frameworks Used](#web-technologies-and-frameworks-used)
+    - [Coding Choices](#coding-choices)
 5. [Testing](#testing)
 6. [Deployment](#deployment)
     - [Local Deployment](#local-deployment)
@@ -155,14 +157,14 @@ There many features one could implement to extend the value and stickiness of an
  - **static files** for <abbr title="Cascading Style Sheets">CSS</abbr> and Javascript files are pointed to using the **load static** method; [Bootstrap](https://getbootstrap.com) was used as the CSS framework; I plan to rewrite this using *Tailwind* in future.
  - **media** files such as images can reside in local folders or using **<abbr title="Amazon Web Services">AWS</abbr> Buckets** as deployment takes place on [**Heroku**](https://heruko.com) free-tier hosting and dynos spin up when the app is requested but it has 'ephemeral storage' meaning uploads like images would disappear once a dyno winds down and resets to the deploy state.
  - Apps and data migrations are added using functions from the **manage.py** file and django shell
- - I decided to use **Postgres** on Windows for my database in case features I may wish to use that are unavailable in sqlite3 (e.g. listfield or aggregations) it also will hopefully allow for smoother deployment as this is the default setup on Heroku.
-I followed this short Medium article by [9cv9](https://9cv9.com/) for [creating django webapp on Postgres for Windows](https://medium.com/@9cv9official/creating-a-django-web-application-with-a-postgresql-database-on-windows-c1eea38fe294) 
- - Where possible I tried to implement **Class-based Views** in Django, following the approach advocated by Daniel & Audrey Feldroy, authors of [Two Scoops of Django
-](https://www.feldroy.com/); I had implemented function based views in my Milestone 3 Flask project and the terse code and logical defaults appealed. Django is, however, a large framework so I didn't deviate too much from standard <abbr title="Create Read Update Delete">CRUD</abbr> functionality and some signals.
+ - I decided to use **Postgres** on Windows for my database in case features I may wish to use that are unavailable in sqlite3 (e.g. listfield or aggregations) it also will hopefully allow for smoother deployment as this is the default setup on Heroku. I followed this short Medium article by [9cv9](https://9cv9.com/) for [creating django webapp on Postgres for Windows](https://medium.com/@9cv9official/creating-a-django-web-application-with-a-postgresql-database-on-windows-c1eea38fe294) 
 - Payments are handled via the [**Stripe**](https://stripe.com) payments system and API mostly using [JQuery](https://jquery.com/) as a convenience; there are some traces of vanilla <abbr title="Ecmascript 6">ES6</abbr> but I'd love to see if the javascript could be handled by something like Alpine.js. 
 
 ### Coding Choices
-Apart from using Class-based Views, I decided to centralise the app templates, 'includes' and form widgets. I found it much easier to work like this even if it meant some extra setup in the settings file. In future I would like to first recode this project in Tailwind on the way to turning chunks into components; and utlimately code something like a Vue App that talks to a Flask or Django REST API.
+Where possible I tried to implement **Class-based Views** in Django, following the approach advocated by Daniel & Audrey Feldroy, authors of [Two Scoops of Django
+](https://www.feldroy.com/); I had implemented function based views in my Milestone 3 Flask project and the terse code and logical defaults appealed. Django is, however, a large framework so I didn't deviate too much from standard <abbr title="Create Read Update Delete">CRUD</abbr> functionality and some signals.
+
+During development, I also decided to centralise the app templates, 'includes' and form widgets. I found it much easier to work like this even if it meant some extra setup in the settings file. Files are easily understood as belonging to a particular app by their prefix. In future I would like to recode this project in Tailwind on the way to turning chunks into components; and utlimately code a Vue App that talks to a Flask or Django REST API.
 
 [Back to TOC](#table-of-contents)
 ---
