@@ -67,6 +67,7 @@ View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; ple
 - Safely and securely use my card details via the Stripe payment gateway to make a purchase
 - View an order confirmation, and receive an email after checkout so that I know the order went through.
 
+---
 ### Design
 
 World of Wine was designed with functionality and ease of use in mind, the design has been kept simple but strong, to engender the idea of stability and trust in the brand. The design uses a subtle colour-palette maintaining the focus being on high quality product images, and well understood design language of an ecommerce website, logo, navbar, icons for basket, profile, cards, detailed view and buttons and form fields.
