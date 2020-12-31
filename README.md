@@ -287,47 +287,44 @@ Prerequisites:
 1. (Sign up) Login into your Heroku account 
 2. Create a new app, called <appname>, selecting the location nearest to you - i.e. Europe. 
 3. Under the ‘Resources’ tab, search for and add the ‘Heroku Postgress DB’ app
-4. In the project terminal, install `dj_database_url`, `psycopg2` by using the following commands: 
-	
-  i. `pip install dj_database_url`
-  ii. `pip install psycopg2-binary`
-  iii. also install `pip install gunicorn` it will be needed for deployment later on
+4. In the project terminal, install `dj_database_url`, `psycopg2` by using the following commands: 	
+  1. `pip install dj_database_url`
+  2. `pip install psycopg2-binary`
+  3. also install `pip install gunicorn` it will be needed for deployment later on
   
 5. Next, freeze these requirements into a requirements file Heroku will use to install the necessary packages for deployment
 - `pip3 freeze > requirements.txt`
 6. To populate the remote heroku (postgres) database you can:
-
-  i.  Comment out the current `DATABASE` settings (we will need them again later), and add:
+  1.  Comment out the current `DATABASE` settings (we will need them again later), and add:
 	- ‘Default’: dj_database_url.parse( insert database URL here)
-  ii. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
-  iii. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
-  iv. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
+  2. import the DJ database connector inserting `import_dj_database_url` at the top of the **settings.py**  file
+  3. On Heroku site Go to your <app> under Settings > Reveal Config Vars > Database URL
+  4. Add the Heroku this **postgres://** URL into brackets as follows `dj_database_url.parse.parse(<database_url>)` 
 	
-9. Now run all the migrations to get our database set up: 
-
-  i. `python3 manage.py migrate`
-  ii. `python manage.py loaddata db.json`
-  iii. You should **not** need to create a superuser; but that command is `python manage.py createsuperuser` if you do.
+7. Now run all the migrations to get our database set up: 
+  1. `python3 manage.py migrate`
+  2. `python manage.py loaddata db.json`
+  3. You should **not** need to create a superuser; but that command is `python manage.py createsuperuser` if you do.
   
-10. Run the django server (locally) `python manage.py runserver <localhost:port>` and you should notice a slight lag as you connect to the remote database.
-11. Before commiting anything to GIT **remove the new dj_database_url settings** and uncomment out the original settings so they are re-eanbled. This stops the database URL going into version control. Alternatively you could have added the remote db as an environmental variable (to for example django-environ) to be safer.
-12. Edit the django **settings.py** file with an if statement, looking for DATABASE_URL, the Heroku variable otherwise connect to the local Postgres server. 
-13. Create a Procfile to tell Heroku to create a web dynamo, which will run unicorn and serve or Django app
-14. Add the following to your Procfile 
+8. Run the django server (locally) `python manage.py runserver <localhost:port>` and you should notice a slight lag as you connect to the remote database.
+9. Before commiting anything to GIT **remove the new dj_database_url settings** and uncomment out the original settings so they are re-eanbled. This stops the database URL going into version control. Alternatively you could have added the remote db as an environmental variable (to for example django-environ) to be safer.
+10. Edit the django **settings.py** file with an if statement, looking for DATABASE_URL, the Heroku variable otherwise connect to the local Postgres server. 
+11. Create a Procfile to tell Heroku to create a web dynamo, which will run unicorn and serve or Django app
+12. Add the following to your Procfile 
   - `web: gunicorn wow.wsgi:application`
-15. Log into HerokuCLI via the terminal with the following command: 
+13. Log into HerokuCLI via the terminal with the following command: 
   - `heroku login -i`
-16. Temporarily disable collect static using the following command: 
+14. Temporarily disable collect static using the following command: 
   - `heroku config:set DISABLE_COLLECTSTATIC=1 --app <appname>`
-17. In settings.py, updated the `ALLOWED_HOSTS` settings. `Localhost` allows Local Development or Gitpod to still work too 
+15. In settings.py, updated the `ALLOWED_HOSTS` settings. `Localhost` allows Local Development or Gitpod to still work too 
   - ALLOWED_HOSTS = ['<appname>.herokuapp.com', 'localhost']
-18. add git remote for heroku and push there
+16. add git remote for heroku and push there
   - `git remote add heroku https://git.heroku.com/<project-name>/git`
-19. Commit all and push to the new remote
+17. Commit all and push to the new remote
   - `git push heroku <master||deploy-branch>`
-19a. In Heroku, you can connect to a Github Repo (you'll be asked to authenicate access) and even a branch; you can set Enable/Disable 'Automatically Deploy'; there is also options to work with <abbr title="Continuous Improvement">CI</abbr> tools like Travis.
-20. Static and Media Folders and URLs are set up using AWS s3 Buckets which is more involved and beyond the scope of this readme.
-20a. See the **settings.py** file for an idea as to how this works
+17a. In Heroku, you can connect to a Github Repo (you'll be asked to authenicate access) and even a branch; you can set Enable/Disable 'Automatically Deploy'; there is also options to work with <abbr title="Continuous Improvement">CI</abbr> tools like Travis.
+18. Static and Media Folders and URLs are set up using AWS s3 Buckets which is more involved and beyond the scope of this readme.
+18a. See the **settings.py** file for an idea as to how this works
 
 
 
