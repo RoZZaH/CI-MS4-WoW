@@ -19,7 +19,7 @@ View live demo is deployed on [heroku](https://worldofwine.herokuapp.com/) ; ple
 3. [Features](#features)
     - [Current Features](#current-features)
       - [Site-wide Features](#site-wide-features)
-      - [Features Of Individual Pages](#features-of-individual-pages)
+      - [Features Of Individual Pages](#features-of-individual-pages-django-apps)
     - [Future Features](#future-features)
 4. [Technologies](#technologies)
     - [Web Technologies and Frameworks Used](#web-technologies-and-frameworks-used)
